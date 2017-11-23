@@ -3,6 +3,7 @@ package com.adsamcik.table;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.PixelFormat;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TableLayout;
@@ -193,7 +195,10 @@ public class Table {
 				View viewTest = ((FrameLayout) recycle).getChildAt(0);
 				if (viewTest instanceof CardView) {
 					cardView = (CardView) viewTest;
-					frameLayout = (FrameLayout) recycle;
+					((FrameLayout) recycle).removeView(cardView);
+					//For some reason causes one view to have isHardwareAccelerated() set to false
+					//which causes that card not cast any shadows
+					//frameLayout = (FrameLayout) recycle;
 					addWrapper = false;
 				}
 			}
