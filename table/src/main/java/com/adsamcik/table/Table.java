@@ -32,7 +32,8 @@ import static com.adsamcik.table.Util.getAccentColor;
 import static com.adsamcik.table.Util.getPressedColorRippleDrawable;
 
 public class Table {
-	public @AppendBehavior int appendBehavior;
+	public @AppendBehavior
+	int appendBehavior;
 
 	public String getTitle() {
 		return title;
@@ -195,11 +196,14 @@ public class Table {
 				View viewTest = ((FrameLayout) recycle).getChildAt(0);
 				if (viewTest instanceof CardView) {
 					cardView = (CardView) viewTest;
-					((FrameLayout) recycle).removeView(cardView);
-					//For some reason causes one view to have isHardwareAccelerated() set to false
-					//which causes that card not cast any shadows
-					//frameLayout = (FrameLayout) recycle;
-					addWrapper = false;
+					frameLayout = (FrameLayout) recycle;
+					//For some reason there can be view or views that have HW acceleration disabled
+					//and without it shadows are not drawn. This solution recreates those views and fixes the issue
+					if (!frameLayout.isHardwareAccelerated()) {
+						((FrameLayout) recycle).removeView(cardView);
+						addWrapper = true;
+					} else
+						addWrapper = false;
 				}
 			}
 		}
@@ -220,7 +224,7 @@ public class Table {
 
 		if (title != null) {
 			TextView titleView = (TextView) layout.getChildAt(0);
-			if(titleView == null) {
+			if (titleView == null) {
 				titleView = new TextView(context, null, theme);
 				titleView.setTextSize(18);
 				titleView.setTypeface(null, Typeface.BOLD);
