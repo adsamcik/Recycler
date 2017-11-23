@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v7.widget.CardView;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.view.Gravity;
@@ -233,6 +234,8 @@ public class Table {
 				titleView.setTextSize(18);
 				titleView.setTypeface(null, Typeface.BOLD);
 				titleView.setGravity(Gravity.CENTER);
+				titleView.setLines(1);
+				titleView.setEllipsize(TextUtils.TruncateAt.END);
 
 				TableLayout.LayoutParams titleLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 				titleLayoutParams.setMargins(sideMargin, 0, sideMargin, dpToPx(displayMetrics, 16));

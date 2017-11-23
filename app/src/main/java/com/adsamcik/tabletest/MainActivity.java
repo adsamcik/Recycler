@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 		Table third = new Table(this, 2, false, 16, AppendBehavior.Any);
 		for (int i = 0; i < 10; i++)
 			third.addData("data " + i, Integer.toString(i));
-		third.setTitle("Title");
+		third.setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod ipsum vel fermentum vulputate. Nulla ultrices quam ut dolor bibendum semper. Quisque placerat cursus ipsum, sit amet rutrum diam porta sed. Aenean arcu est, scelerisque non neque sed, vulputate lacinia risus. In aliquet egestas ullamcorper. Phasellus vitae nunc aliquet, tincidunt metus ut, maximus magna. Nam fringilla porta enim euismod sagittis. Praesent placerat lacinia mauris id tempor. Nullam vulputate, nibh in tincidunt tempus, mauris libero sagittis arcu, a mollis libero tortor non ante. ");
 
 
 		adapter.add(third);
