@@ -134,15 +134,30 @@ public class Table {
 
 	private TextView generateButton(@NonNull Context context, DisplayMetrics displayMetrics, int index, @StyleRes int theme) {
 		Button button = new Button(context, null, theme);
-		button.setMinWidth(dpToPx(displayMetrics, 48));
-		button.setPadding(dpToPx(displayMetrics, 16), 0, dpToPx(displayMetrics, 16), 0);
-		button.setHeight(dpToPx(displayMetrics, 48));
+
+		//value caching
+		int dp48px = dpToPx(displayMetrics, 48);
+		int dp16px = dpToPx(displayMetrics, 16);
+
+		//dimensions
+		button.setMinWidth(dp48px);
+		button.setPadding(dp16px, 0, dp16px, 0);
+		button.setHeight(dp48px);
+
+		//layout params
+		TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		layoutParams.setMargins(0, dp16px, 0, 0);
+		button.setLayoutParams(layoutParams);
+
+		//style
 		button.setText(buttons.get(index).first.toUpperCase());
 		button.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 		button.setOnClickListener(buttons.get(index).second);
 		button.setTextSize(16);
 		button.setGravity(Gravity.CENTER);
 		button.setBackground(getPressedColorRippleDrawable(0, getAccentColor(context), context.getDrawable(R.drawable.rectangle)));
+
+
 		return button;
 	}
 
