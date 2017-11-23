@@ -29,6 +29,15 @@ public class MainActivity extends AppCompatActivity {
 		second.addButton("button", view -> {
 		});
 
+
+		Table third = new Table(this, 2, false, 16, AppendBehavior.Any);
+		for (int i = 0; i < 10; i++)
+			third.addData("data " + i, Integer.toString(i));
+		third.setTitle("Title");
+
+
+		adapter.add(third);
+
 		for (int i = 0; i < 10; i++) {
 			adapter.add(first);
 		}
