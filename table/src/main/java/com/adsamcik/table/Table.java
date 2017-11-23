@@ -56,7 +56,7 @@ public class Table {
 	 * @param rowCount   number of data (used to initialize array holding data)
 	 * @param showNumber show number of row (starts at 1)
 	 */
-	public Table(@NonNull Context context, int rowCount, boolean showNumber, int wrapperMarginDp, @AppendBehavior int appendBehavior) {
+	public Table(int rowCount, boolean showNumber, int wrapperMarginDp, @AppendBehavior int appendBehavior) {
 		this.data = new ArrayList<>(rowCount);
 		this.showNumber = showNumber;
 		this.appendBehavior = appendBehavior;
@@ -238,10 +238,11 @@ public class Table {
 			}
 		}
 
-		if (cardView == null) {
+		if (cardView == null)
 			cardView = new CardView(context, null, theme);
+
+		if (dividerColor == 0)
 			updateDividerColor(cardView);
-		}
 
 		final int padding = (int) r.getDimension(R.dimen.table_padding);
 		final int itemVerticalPadding = (int) r.getDimension(R.dimen.table_item_vertical_padding);
