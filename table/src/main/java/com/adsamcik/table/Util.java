@@ -2,12 +2,15 @@ package com.adsamcik.table;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 
 import java.text.DecimalFormat;
 
@@ -52,6 +55,13 @@ public class Util {
 
 	private static ColorDrawable getColorDrawableFromColor(int color) {
 		return new ColorDrawable(color);
+	}
+
+	static @ColorInt
+	int getAccentColor(@NonNull Context context) {
+		TypedValue typedValue = new TypedValue();
+		context.getTheme().resolveAttribute(R.attr.colorAccent, typedValue, true);
+		return typedValue.data;
 	}
 
 	/**

@@ -1,12 +1,9 @@
 package com.adsamcik.table;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.Canvas;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.RippleDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -29,8 +26,10 @@ import java.util.Locale;
 
 import static com.adsamcik.table.Util.dpToPx;
 import static com.adsamcik.table.Util.formatNumber;
+import static com.adsamcik.table.Util.getAccentColor;
+import static com.adsamcik.table.Util.getPressedColorRippleDrawable;
 
-public class Table extends View {
+public class Table {
 	public @AppendBehavior int appendBehavior;
 
 	public String getTitle() {
@@ -45,22 +44,6 @@ public class Table extends View {
 
 	private int marginDp;
 
-	public Table(Context context) {
-		super(context);
-	}
-
-	public Table(Context context, @Nullable AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	public Table(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-	}
-
-	public Table(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
-	}
-
 	/**
 	 * Table constructor
 	 *
@@ -68,7 +51,6 @@ public class Table extends View {
 	 * @param showNumber show number of row (starts at 1)
 	 */
 	public Table(@NonNull Context context, int rowCount, boolean showNumber, int marginDp, @AppendBehavior int appendBehavior) {
-		super(context);
 		this.data = new ArrayList<>(rowCount);
 		this.showNumber = showNumber;
 		this.appendBehavior = appendBehavior;
@@ -156,7 +138,7 @@ public class Table extends View {
 		button.setOnClickListener(buttons.get(index).second);
 		button.setTextSize(16);
 		button.setGravity(Gravity.CENTER);
-		//button.setBackground(getPressedColorRippleDrawable(0, ContextCompat.getColor(context, R.color.color_accent), context.getDrawable(R.drawable.rectangle)));
+		button.setBackground(getPressedColorRippleDrawable(0, getAccentColor(context), context.getDrawable(R.drawable.rectangle)));
 		return button;
 	}
 
@@ -179,7 +161,6 @@ public class Table extends View {
 		TextView textValue = new TextView(context, null, theme);
 		String value = data.get(index).second;
 		try {
-			//todo add support for custom
 			textValue.setText(formatNumber(Integer.parseInt(value)));
 		} catch (NumberFormatException e) {
 			textValue.setText(value);
