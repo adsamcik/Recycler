@@ -2,21 +2,17 @@ package com.adsamcik.table;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Canvas;
-import android.graphics.PixelFormat;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
-import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TableLayout;
@@ -29,6 +25,7 @@ import java.util.Locale;
 import static com.adsamcik.table.Util.dpToPx;
 import static com.adsamcik.table.Util.formatNumber;
 import static com.adsamcik.table.Util.getAccentColor;
+import static com.adsamcik.table.Util.getDisplayMetrics;
 import static com.adsamcik.table.Util.getPressedColorRippleDrawable;
 
 public class Table {
@@ -45,7 +42,9 @@ public class Table {
 
 	private boolean showNumber;
 
-	private int marginDp;
+	private int wrapperMarginDp;
+
+	private final int sideMarginDp = 16;
 
 	/**
 	 * Table constructor
@@ -53,11 +52,11 @@ public class Table {
 	 * @param rowCount   number of data (used to initialize array holding data)
 	 * @param showNumber show number of row (starts at 1)
 	 */
-	public Table(@NonNull Context context, int rowCount, boolean showNumber, int marginDp, @AppendBehavior int appendBehavior) {
+	public Table(@NonNull Context context, int rowCount, boolean showNumber, int wrapperMarginDp, @AppendBehavior int appendBehavior) {
 		this.data = new ArrayList<>(rowCount);
 		this.showNumber = showNumber;
 		this.appendBehavior = appendBehavior;
-		this.marginDp = marginDp;
+		this.wrapperMarginDp = wrapperMarginDp;
 	}
 
 	/*public void addToViewGroup(@NonNull ViewGroup viewGroup, @NonNull Context context, int index, boolean animate, long delay) {
@@ -116,12 +115,13 @@ public class Table {
 		return this;
 	}
 
-	private TableRow generateButtonsRow(@NonNull Context context, @StyleRes int theme) {
+	private TableRow generateButtonsRow(@NonNull Context context, @StyleRes int theme, int sideMargin) {
 		if (buttons != null) {
 			DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
 			TableRow row = new TableRow(context);
 			TableLayout.LayoutParams lp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			lp.topMargin = dpToPx(displayMetrics, 4);
+			lp.setMargins(sideMargin, 0, sideMargin, 0);
 			row.setLayoutParams(lp);
 
 			for (int i = 0; i < buttons.size(); i++)
@@ -145,9 +145,9 @@ public class Table {
 		return button;
 	}
 
-	private TableRow generateDataRow(@NonNull Context context, int index, @StyleRes int theme) {
+	private TableRow generateDataRow(@NonNull Context context, int index, @StyleRes int theme, int leftRightPadding) {
 		TableRow row = new TableRow(context);
-		row.setPadding(0, 0, 0, 20);
+		row.setPadding(leftRightPadding, 0, leftRightPadding, 0);
 
 		if (showNumber) {
 			TextView rowNum = new TextView(context, null, theme);
@@ -184,10 +184,14 @@ public class Table {
 	 */
 	public View getView(@NonNull Context context, @Nullable View recycle, boolean requireWrapper, @StyleRes int theme) {
 		Resources r = context.getResources();
-		boolean addWrapper = marginDp != 0 || requireWrapper;
+		boolean addWrapper = wrapperMarginDp != 0 || requireWrapper;
 
 		CardView cardView = null;
 		FrameLayout frameLayout = null;
+
+		DisplayMetrics displayMetrics = getDisplayMetrics(context);
+
+		int sideMargin = dpToPx(displayMetrics, sideMarginDp);
 
 		if (recycle != null) {
 			if (recycle instanceof CardView) {
@@ -217,7 +221,7 @@ public class Table {
 		TableLayout layout = (TableLayout) cardView.getChildAt(0);
 		if (layout == null) {
 			layout = new TableLayout(context);
-			layout.setPadding(hPadding, 30, hPadding, 30);
+			layout.setPadding(0, 30, 0, 30);
 			cardView.addView(layout);
 		} else
 			layout.removeAllViews();
@@ -229,26 +233,45 @@ public class Table {
 				titleView.setTextSize(18);
 				titleView.setTypeface(null, Typeface.BOLD);
 				titleView.setGravity(Gravity.CENTER);
-				titleView.setPadding(0, 0, 0, 30);
+
+				TableLayout.LayoutParams titleLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+				titleLayoutParams.setMargins(sideMargin, 0, sideMargin, dpToPx(displayMetrics, 16));
+				titleView.setLayoutParams(titleLayoutParams);
+
 				layout.addView(titleView, 0);
 			}
 
 			titleView.setText(title);
 		}
 
-		for (int i = 0; i < data.size(); i++)
-			layout.addView(generateDataRow(context, i, theme));
+		if (data.size() > 0) {
+			layout.addView(generateDataRow(context, 0, theme, hPadding));
+			if (data.size() > 1) {
+				TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(displayMetrics, 1));
+				layoutParams.setMargins(0, sideMargin, 0, sideMargin);
+				int dividerColor = Color.argb(30, 0, 0, 0);
 
-		TableRow buttonsRow = generateButtonsRow(context, theme);
+				for (int i = 1; i < data.size(); i++) {
+					View divider = new View(context);
+					divider.setLayoutParams(layoutParams);
+					divider.setBackgroundColor(dividerColor);
+					layout.addView(divider);
+
+					layout.addView(generateDataRow(context, i, theme, hPadding));
+				}
+			}
+		}
+
+		TableRow buttonsRow = generateButtonsRow(context, theme, sideMargin);
 		if (buttonsRow != null)
 			layout.addView(buttonsRow);
 
 		if (addWrapper) {
 			frameLayout = new FrameLayout(context);
 
-			if (marginDp != 0) {
+			if (wrapperMarginDp != 0) {
 				FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-				int margin = dpToPx(context, this.marginDp);
+				int margin = dpToPx(displayMetrics, this.wrapperMarginDp);
 				layoutParams.setMargins(margin, margin, margin, margin);
 				cardView.setLayoutParams(layoutParams);
 			}
