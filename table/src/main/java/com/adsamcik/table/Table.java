@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
@@ -45,7 +48,7 @@ public class Table {
 
 	private int wrapperMarginDp;
 
-	private final int sideMarginDp = 16;
+	private int dividerColor = 0;
 
 	/**
 	 * Table constructor
@@ -58,6 +61,16 @@ public class Table {
 		this.showNumber = showNumber;
 		this.appendBehavior = appendBehavior;
 		this.wrapperMarginDp = wrapperMarginDp;
+	}
+
+	private void updateDividerColor(@NonNull CardView cardView) {
+		int color = cardView.getCardBackgroundColor().getDefaultColor();
+		double lum = ColorUtils.calculateLuminance(color);
+
+		if (lum > 0.5)
+			dividerColor = Color.argb(30, 0, 0, 0);
+		else
+			dividerColor = Color.argb(30, 255, 255, 255);
 	}
 
 	/*public void addToViewGroup(@NonNull ViewGroup viewGroup, @NonNull Context context, int index, boolean animate, long delay) {
@@ -227,6 +240,7 @@ public class Table {
 
 		if (cardView == null) {
 			cardView = new CardView(context, null, theme);
+			updateDividerColor(cardView);
 		}
 
 		final int padding = (int) r.getDimension(R.dimen.table_padding);
@@ -266,7 +280,6 @@ public class Table {
 			layout.addView(row);
 			if (data.size() > 1) {
 				TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(displayMetrics, 1));
-				int dividerColor = Color.argb(30, 0, 0, 0);
 
 				for (int i = 1; i < data.size(); i++) {
 					View divider = new View(context);

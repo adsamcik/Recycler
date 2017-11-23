@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		//buttons do not have background without this
 		getApplicationContext().setTheme(R.style.AppTheme);
+		setTheme(R.style.AppTheme);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
