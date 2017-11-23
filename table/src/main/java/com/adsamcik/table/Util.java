@@ -34,7 +34,11 @@ public class Util {
 	 * @return pixels
 	 */
 	static int dpToPx(@NonNull Context c, int dp) {
-		return Math.round(dp * c.getResources().getDisplayMetrics().density);
+		return dpToPx(getDisplayMetrics(c), dp);
+	}
+
+	static DisplayMetrics getDisplayMetrics(@NonNull Context context) {
+		return context.getResources().getDisplayMetrics();
 	}
 
 	/**
