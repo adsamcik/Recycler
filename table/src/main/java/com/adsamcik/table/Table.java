@@ -161,9 +161,8 @@ public class Table {
 		return button;
 	}
 
-	private TableRow generateDataRow(@NonNull Context context, int index, @StyleRes int theme, int leftRightPadding) {
+	private TableRow generateDataRow(@NonNull Context context, int index, @StyleRes int theme) {
 		TableRow row = new TableRow(context);
-		row.setPadding(leftRightPadding, 0, leftRightPadding, 0);
 
 		if (showNumber) {
 			TextView rowNum = new TextView(context, null, theme);
@@ -207,8 +206,6 @@ public class Table {
 
 		DisplayMetrics displayMetrics = getDisplayMetrics(context);
 
-		int sideMargin = dpToPx(displayMetrics, sideMarginDp);
-
 		if (recycle != null) {
 			if (recycle instanceof CardView) {
 				cardView = (CardView) recycle;
@@ -232,7 +229,7 @@ public class Table {
 			cardView = new CardView(context, null, theme);
 		}
 
-		final int hPadding = (int) r.getDimension(R.dimen.table_padding);
+		final int padding = (int) r.getDimension(R.dimen.table_padding);
 
 		TableLayout layout = (TableLayout) cardView.getChildAt(0);
 		if (layout == null) {
@@ -253,7 +250,7 @@ public class Table {
 				titleView.setEllipsize(TextUtils.TruncateAt.END);
 
 				TableLayout.LayoutParams titleLayoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-				titleLayoutParams.setMargins(sideMargin, 0, sideMargin, dpToPx(displayMetrics, 16));
+				titleLayoutParams.setMargins(padding, 0, padding, dpToPx(displayMetrics, 16));
 				titleView.setLayoutParams(titleLayoutParams);
 
 				layout.addView(titleView, 0);
@@ -263,10 +260,11 @@ public class Table {
 		}
 
 		if (data.size() > 0) {
-			layout.addView(generateDataRow(context, 0, theme, hPadding));
+			TableRow row = generateDataRow(context, 0, theme);
+			row.setPadding(padding, padding, padding, padding);
+			layout.addView(row);
 			if (data.size() > 1) {
 				TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(displayMetrics, 1));
-				layoutParams.setMargins(0, sideMargin, 0, sideMargin);
 				int dividerColor = Color.argb(30, 0, 0, 0);
 
 				for (int i = 1; i < data.size(); i++) {
@@ -275,12 +273,14 @@ public class Table {
 					divider.setBackgroundColor(dividerColor);
 					layout.addView(divider);
 
-					layout.addView(generateDataRow(context, i, theme, hPadding));
+					row = generateDataRow(context, i, theme);
+					row.setPadding(padding, padding, padding, padding);
+					layout.addView(row);
 				}
 			}
 		}
 
-		TableRow buttonsRow = generateButtonsRow(context, theme, sideMargin);
+		TableRow buttonsRow = generateButtonsRow(context, theme, padding);
 		if (buttonsRow != null)
 			layout.addView(buttonsRow);
 
