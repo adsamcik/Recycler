@@ -230,6 +230,7 @@ public class Table {
 		}
 
 		final int padding = (int) r.getDimension(R.dimen.table_padding);
+		final int itemVerticalPadding = (int) r.getDimension(R.dimen.table_item_vertical_padding);
 
 		TableLayout layout = (TableLayout) cardView.getChildAt(0);
 		if (layout == null) {
@@ -261,7 +262,7 @@ public class Table {
 
 		if (data.size() > 0) {
 			TableRow row = generateDataRow(context, 0, theme);
-			row.setPadding(padding, padding, padding, padding);
+			row.setPadding(padding, itemVerticalPadding, padding, itemVerticalPadding);
 			layout.addView(row);
 			if (data.size() > 1) {
 				TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(displayMetrics, 1));
@@ -274,7 +275,7 @@ public class Table {
 					layout.addView(divider);
 
 					row = generateDataRow(context, i, theme);
-					row.setPadding(padding, padding, padding, padding);
+					row.setPadding(padding, itemVerticalPadding, padding, itemVerticalPadding);
 					layout.addView(row);
 				}
 			}
