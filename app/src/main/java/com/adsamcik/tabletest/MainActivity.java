@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 			adapter.add(first);
 		}
 
-		//adapter.add(second);
+		adapter.add(second);
 
 		adapter.sort();
 	}
