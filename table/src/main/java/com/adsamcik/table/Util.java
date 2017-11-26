@@ -14,7 +14,7 @@ import android.util.TypedValue;
 
 import java.text.DecimalFormat;
 
-public class Util {
+class Util {
 	/**
 	 * Slightly more optimized function for conversion from density-independent pixels to pixels
 	 *
