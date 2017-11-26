@@ -21,7 +21,8 @@ public class TableAdapter extends BaseAdapter {
 
 	private final int itemMarginPx;
 
-	private final @StyleRes int themeInt;
+	private final @StyleRes
+	int themeInt;
 
 	public TableAdapter(@NonNull Context context, int itemMarginDp, @StyleRes int themeInt) {
 		tables = new ArrayList<>();
@@ -30,20 +31,35 @@ public class TableAdapter extends BaseAdapter {
 		this.themeInt = themeInt;
 	}
 
+	/**
+	 * Add table to adapter
+	 *
+	 * @param table table
+	 */
 	public void add(Table table) {
 		tables.add(table);
 	}
 
+	/**
+	 * Remove all tables from adapter
+	 */
 	public void clear() {
 		tables.clear();
 		notifyDataSetChanged();
 	}
 
+	/**
+	 * Sorts tables based on their {@link AppendBehavior}.
+	 */
 	public void sort() {
 		Collections.sort(tables, (tx, ty) -> tx.appendBehavior - ty.appendBehavior);
 		notifyDataSetChanged();
 	}
 
+	/**
+	 * Removed all elements with specific {@link AppendBehavior}
+	 * @param appendBehavior append behavior
+	 */
 	public void remove(final @AppendBehavior int appendBehavior) {
 		if (Build.VERSION.SDK_INT >= 24)
 			tables.removeIf(table -> table.appendBehavior == appendBehavior);
