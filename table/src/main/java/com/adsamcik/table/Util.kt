@@ -2,14 +2,12 @@ package com.adsamcik.table
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.content.res.TypedArray
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.RippleDrawable
 import android.support.annotation.ColorInt
 import android.util.DisplayMetrics
 import android.util.TypedValue
-
 import java.text.DecimalFormat
 
 internal object Util {

@@ -37,31 +37,26 @@ class Table
  * @param rowCount   number of data (used to initialize array holding data)
  * @param showNumber show number of row (starts at 1)
  */
-(rowCount: Int, private val showNumber: Boolean, private val wrapperMarginDp: Int, @param:AppendBehavior @field:AppendBehavior
-var appendBehavior: Int) {
+(rowCount: Int,
+ private val showNumber: Boolean,
+ private val wrapperMarginDp: Int,
+ @AppendBehaviors.AppendBehavior var appendBehavior: Int) {
 
-    private var title: String? = null
-    private val data: ArrayList<Pair<String, String>>
+    var title: String? = null
+
+    private val data: ArrayList<Pair<String, String>> = ArrayList(rowCount)
     private var buttons: ArrayList<Pair<String, View.OnClickListener>>? = null
 
     private var dividerColor = 0
-
-    fun getTitle(): String? {
-        return title
-    }
-
-    init {
-        this.data = ArrayList(rowCount)
-    }
 
     private fun updateDividerColor(cardView: CardView) {
         val color = cardView.cardBackgroundColor.defaultColor
         val lum = ColorUtils.calculateLuminance(color)
 
-        if (lum > 0.5)
-            dividerColor = Color.argb(30, 0, 0, 0)
+        dividerColor = if (lum > 0.5)
+            Color.argb(30, 0, 0, 0)
         else
-            dividerColor = Color.argb(30, 255, 255, 255)
+            Color.argb(30, 255, 255, 255)
     }
 
     /*public void addToViewGroup(@NonNull ViewGroup viewGroup, @NonNull Context context, int index, boolean animate, long delay) {
@@ -84,17 +79,6 @@ var appendBehavior: Int) {
 	}*/
 
     /**
-     * Sets single title for whole table
-     *
-     * @param title title
-     * @return this table
-     */
-    fun setTitle(title: String): Table {
-        this.title = title
-        return this
-    }
-
-    /**
      * Add button to the bottom of the table
      *
      * @param text     title of the button
@@ -103,8 +87,8 @@ var appendBehavior: Int) {
      */
     fun addButton(text: String, callback: View.OnClickListener): Table {
         if (buttons == null)
-            buttons = ArrayList<Pair<String, OnClickListener>>(2)
-        buttons!!.add(Pair<String, OnClickListener>(text, callback))
+            buttons = ArrayList(2)
+        buttons!!.add(Pair(text, callback))
         return this
     }
 
@@ -154,7 +138,7 @@ var appendBehavior: Int) {
         button.layoutParams = layoutParams
 
         //style
-        button.setText(buttons!![index].first.toUpperCase())
+        button.text = buttons!![index].first.toUpperCase()
         button.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         button.setOnClickListener(buttons!![index].second)
         button.textSize = 16f
@@ -170,7 +154,7 @@ var appendBehavior: Int) {
 
         if (showNumber) {
             val rowNum = TextView(context, null, theme)
-            rowNum.setText(String.format(Locale.UK, "%d", index + 1))
+            rowNum.text = String.format(Locale.UK, "%d", index + 1)
             rowNum.layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.5f)
             row.addView(rowNum)
         }
@@ -221,11 +205,11 @@ var appendBehavior: Int) {
                     frameLayout = recycle
                     //For some reason there can be view or views that have HW acceleration disabled
                     //and without it shadows are not drawn. This solution recreates those views and fixes the issue
-                    if (!frameLayout.isHardwareAccelerated) {
+                    addWrapper = if (!frameLayout.isHardwareAccelerated) {
                         recycle.removeView(cardView)
-                        addWrapper = true
+                        true
                     } else
-                        addWrapper = false
+                        false
                 }
             }
         }

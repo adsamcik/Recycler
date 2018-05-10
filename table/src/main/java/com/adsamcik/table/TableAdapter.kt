@@ -3,29 +3,23 @@ package com.adsamcik.table
 import android.content.Context
 import android.os.Build
 import android.support.annotation.StyleRes
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.FrameLayout
-
-import java.util.ArrayList
-import java.util.Collections
-
 import com.adsamcik.table.Util.dpToPx
+import java.util.ArrayList
+import kotlin.Any
+import kotlin.Comparator
+import kotlin.Int
+import kotlin.Long
 
 class TableAdapter(context: Context, itemMarginDp: Int, @param:StyleRes @field:StyleRes
 private val themeInt: Int) : BaseAdapter() {
-    private val tables: ArrayList<Table>
-    private val context: Context
+    private val tables: ArrayList<Table> = ArrayList()
+    private val context: Context = context.applicationContext
 
-    private val itemMarginPx: Int
-
-    init {
-        tables = ArrayList()
-        this.context = context.applicationContext
-        itemMarginPx = if (itemMarginDp == 0) 0 else dpToPx(context, itemMarginDp)
-    }
+    private val itemMarginPx: Int = if (itemMarginDp == 0) 0 else dpToPx(context, itemMarginDp)
 
     /**
      * Add table to adapter
@@ -45,18 +39,18 @@ private val themeInt: Int) : BaseAdapter() {
     }
 
     /**
-     * Sorts tables based on their [AppendBehavior].
+     * Sorts tables based on their [AppendBehaviors.AppendBehavior].
      */
     fun sort() {
-        Collections.sort(tables) { tx, ty -> tx.appendBehavior - ty.appendBehavior }
+        tables.sortWith(Comparator { tx, ty -> tx.appendBehavior - ty.appendBehavior })
         notifyDataSetChanged()
     }
 
     /**
-     * Removed all elements with specific [AppendBehavior]
+     * Removed all elements with specific [AppendBehaviors.AppendBehavior]
      * @param appendBehavior append behavior
      */
-    fun remove(@AppendBehavior appendBehavior: Int) {
+    fun remove(@AppendBehaviors.AppendBehavior appendBehavior: Int) {
         if (Build.VERSION.SDK_INT >= 24)
             tables.removeIf { table -> table.appendBehavior == appendBehavior }
         else {
