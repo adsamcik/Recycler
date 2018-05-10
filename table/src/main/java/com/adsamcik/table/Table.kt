@@ -223,7 +223,7 @@ class Table
         val padding = r.getDimension(R.dimen.table_padding).toInt()
         val itemVerticalPadding = r.getDimension(R.dimen.table_item_vertical_padding).toInt()
 
-        var layout: TableLayout? = cardView.getChildAt(0) as TableLayout
+        var layout = cardView.getChildAt(0) as TableLayout?
         if (layout == null) {
             layout = TableLayout(context)
             layout.setPadding(0, 30, 0, 30)
@@ -232,7 +232,7 @@ class Table
             layout.removeAllViews()
 
         if (title != null) {
-            var titleView: TextView? = layout.getChildAt(0) as TextView
+            var titleView = layout.getChildAt(0) as TextView?
             if (titleView == null) {
                 titleView = TextView(context, null, theme)
                 titleView.textSize = 18f
