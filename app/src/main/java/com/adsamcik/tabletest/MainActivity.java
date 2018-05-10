@@ -3,6 +3,7 @@ package com.adsamcik.tabletest;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.adsamcik.table.AppendBehaviors;
 import com.adsamcik.table.Table;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 		Table second = new Table(2, true, 16, AppendBehaviors.First);
 		second.addData("numbered", "world");
 		second.addButton("button", view -> {
+			Toast.makeText(this, "Clicked a button", Toast.LENGTH_SHORT).show();
 		});
 
 
