@@ -18,7 +18,7 @@ import com.adsamcik.table.Util.getPressedColorRippleDrawable
 import com.adsamcik.table.Util.toPx
 import java.util.*
 
-class Table
+open class Table
 /**
  * Table constructor
  *

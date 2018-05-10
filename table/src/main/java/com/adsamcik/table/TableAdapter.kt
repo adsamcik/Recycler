@@ -14,7 +14,7 @@ import kotlin.Comparator
 import kotlin.Int
 import kotlin.Long
 
-class TableAdapter(context: Context, itemMarginDp: Int, @param:StyleRes @field:StyleRes
+open class TableAdapter(context: Context, itemMarginDp: Int, @param:StyleRes @field:StyleRes
 private val themeInt: Int) : BaseAdapter() {
     private val tables: ArrayList<Table> = ArrayList()
     private val context: Context = context.applicationContext
