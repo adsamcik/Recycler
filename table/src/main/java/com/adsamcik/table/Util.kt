@@ -2,40 +2,16 @@ package com.adsamcik.table
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.RippleDrawable
 import android.support.annotation.ColorInt
-import android.util.DisplayMetrics
 import android.util.TypedValue
 import java.text.DecimalFormat
 
 internal object Util {
-    /**
-     * Slightly more optimized function for conversion from density-independent pixels to pixels
-     *
-     * @param dm display metrics
-     * @param dp Density-independent Pixels
-     * @return pixels
-     */
-    fun dpToPx(dm: DisplayMetrics, dp: Int): Int {
-        return Math.round(dp * dm.density)
-    }
-
-    /**
-     * Function for conversion from dp to px
-     *
-     * @param c  context
-     * @param dp Density-independent Pixels
-     * @return pixels
-     */
-    fun dpToPx(c: Context, dp: Int): Int {
-        return dpToPx(getDisplayMetrics(c), dp)
-    }
-
-    fun getDisplayMetrics(context: Context): DisplayMetrics {
-        return context.resources.displayMetrics
-    }
+    internal fun Int.toPx() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     /**
      * Generate ripple drawable

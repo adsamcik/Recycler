@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.FrameLayout
-import com.adsamcik.table.Util.dpToPx
+import com.adsamcik.table.Util.toPx
 import java.util.ArrayList
 import kotlin.Any
 import kotlin.Comparator
@@ -19,7 +19,7 @@ private val themeInt: Int) : BaseAdapter() {
     private val tables: ArrayList<Table> = ArrayList()
     private val context: Context = context.applicationContext
 
-    private val itemMarginPx: Int = if (itemMarginDp == 0) 0 else dpToPx(context, itemMarginDp)
+    private val itemMarginPx: Int = itemMarginDp.toPx()
 
     /**
      * Add table to adapter

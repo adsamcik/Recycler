@@ -1,34 +1,22 @@
 package com.adsamcik.table
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
-import android.os.Build
 import android.support.annotation.StyleRes
 import android.support.v4.graphics.ColorUtils
 import android.support.v7.widget.CardView
 import android.text.TextUtils
-import android.util.DisplayMetrics
-import android.util.Log
 import android.util.Pair
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
-
-import java.util.ArrayList
-import java.util.Locale
-
-import com.adsamcik.table.Util.dpToPx
+import android.widget.*
 import com.adsamcik.table.Util.formatNumber
 import com.adsamcik.table.Util.getAccentColor
-import com.adsamcik.table.Util.getDisplayMetrics
 import com.adsamcik.table.Util.getPressedColorRippleDrawable
+import com.adsamcik.table.Util.toPx
+import java.util.*
 
 class Table
 /**
@@ -106,26 +94,25 @@ class Table
 
     private fun generateButtonsRow(context: Context, @StyleRes theme: Int, sideMargin: Int): TableRow? {
         if (buttons != null) {
-            val displayMetrics = context.resources.displayMetrics
             val row = TableRow(context)
             val lp = TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            lp.topMargin = dpToPx(displayMetrics, 4)
+            lp.topMargin = 4.toPx()
             lp.setMargins(sideMargin, 0, sideMargin, 0)
             row.layoutParams = lp
 
             for (i in buttons!!.indices)
-                row.addView(generateButton(context, displayMetrics, i, theme))
+                row.addView(generateButton(context, i, theme))
             return row
         }
         return null
     }
 
-    private fun generateButton(context: Context, displayMetrics: DisplayMetrics, index: Int, @StyleRes theme: Int): TextView {
+    private fun generateButton(context: Context, index: Int, @StyleRes theme: Int): TextView {
         val button = Button(context, null, theme)
 
         //value caching
-        val dp48px = dpToPx(displayMetrics, 48)
-        val dp16px = dpToPx(displayMetrics, 16)
+        val dp48px = 48.toPx()
+        val dp16px = 16.toPx()
 
         //dimensions
         button.minWidth = dp48px
@@ -193,8 +180,6 @@ class Table
         var cardView: CardView? = null
         var frameLayout: FrameLayout? = null
 
-        val displayMetrics = getDisplayMetrics(context)
-
         if (recycle != null) {
             if (recycle is CardView) {
                 cardView = recycle
@@ -242,7 +227,7 @@ class Table
                 titleView.ellipsize = TextUtils.TruncateAt.END
 
                 val titleLayoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                titleLayoutParams.setMargins(padding, 0, padding, dpToPx(displayMetrics, 16))
+                titleLayoutParams.setMargins(padding, 0, padding, 16.toPx())
                 titleView.layoutParams = titleLayoutParams
 
                 layout.addView(titleView, 0)
@@ -256,7 +241,7 @@ class Table
             row.setPadding(padding, itemVerticalPadding, padding, itemVerticalPadding)
             layout.addView(row)
             if (data.size > 1) {
-                val layoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(displayMetrics, 1))
+                val layoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1.toPx())
 
                 for (i in 1 until data.size) {
                     val divider = View(context)
@@ -280,7 +265,7 @@ class Table
 
             if (wrapperMarginDp != 0) {
                 val layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-                val margin = dpToPx(displayMetrics, this.wrapperMarginDp)
+                val margin = wrapperMarginDp.toPx()
                 layoutParams.setMargins(margin, margin, margin, margin)
                 cardView.layoutParams = layoutParams
             }
