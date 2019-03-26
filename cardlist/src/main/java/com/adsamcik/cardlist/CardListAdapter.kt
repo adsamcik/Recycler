@@ -14,35 +14,35 @@ import kotlin.Comparator
 import kotlin.Int
 import kotlin.Long
 
-open class TableAdapter(context: Context, itemMarginDp: Int, @param:StyleRes @field:StyleRes
+open class CardListAdapter(context: Context, itemMarginDp: Int, @param:StyleRes @field:StyleRes
 private val themeInt: Int) : BaseAdapter() {
-    private val tables: ArrayList<Table> = ArrayList()
+    private val tableCards: ArrayList<TableCard> = ArrayList()
     private val context: Context = context.applicationContext
 
     private val itemMarginPx: Int = itemMarginDp.toPx()
 
     /**
-     * Add table to adapter
+     * Add tableCard to adapter
      *
-     * @param table table
+     * @param tableCard tableCard
      */
-    fun add(table: Table) {
-        tables.add(table)
+    fun add(tableCard: TableCard) {
+        tableCards.add(tableCard)
     }
 
     /**
-     * Remove all tables from adapter
+     * Remove all tableCards from adapter
      */
     fun clear() {
-        tables.clear()
+        tableCards.clear()
         notifyDataSetChanged()
     }
 
     /**
-     * Sorts tables based on their [AppendBehaviors.AppendBehavior].
+     * Sorts tableCards based on their [AppendBehaviors.AppendBehavior].
      */
     fun sort() {
-        tables.sortWith(Comparator { tx, ty -> tx.appendBehavior - ty.appendBehavior })
+        tableCards.sortWith(Comparator { tx, ty -> tx.appendBehavior - ty.appendBehavior })
         notifyDataSetChanged()
     }
 
@@ -52,12 +52,12 @@ private val themeInt: Int) : BaseAdapter() {
      */
     fun remove(@AppendBehaviors.AppendBehavior appendBehavior: Int) {
         if (Build.VERSION.SDK_INT >= 24)
-            tables.removeIf { table -> table.appendBehavior == appendBehavior }
+            tableCards.removeIf { table -> table.appendBehavior == appendBehavior }
         else {
             var i = 0
-            while (i < tables.size) {
-                if (tables[i].appendBehavior == appendBehavior)
-                    tables.removeAt(i--)
+            while (i < tableCards.size) {
+                if (tableCards[i].appendBehavior == appendBehavior)
+                    tableCards.removeAt(i--)
                 i++
             }
         }
@@ -65,11 +65,11 @@ private val themeInt: Int) : BaseAdapter() {
     }
 
     override fun getCount(): Int {
-        return tables.size
+        return tableCards.size
     }
 
     override fun getItem(i: Int): Any {
-        return tables[i]
+        return tableCards[i]
     }
 
     override fun getItemId(i: Int): Long {
@@ -77,7 +77,7 @@ private val themeInt: Int) : BaseAdapter() {
     }
 
     override fun getView(i: Int, view: View?, viewGroup: ViewGroup): View {
-        val v = tables[i].getView(context, view, true, themeInt) as ViewGroup
+        val v = tableCards[i].getView(context, view, true, themeInt) as ViewGroup
 
         val lp = v.getChildAt(0).layoutParams as FrameLayout.LayoutParams
         lp.setMargins(lp.leftMargin, if (i > 0) itemMarginPx / 2 else itemMarginPx, lp.rightMargin, if (i < count - 1) itemMarginPx / 2 else itemMarginPx)
