@@ -29,7 +29,7 @@ open class TableCard
 (private val showNumber: Boolean,
  private val wrapperMarginDp: Int,
  rowCount: Int = 4,
- @AppendBehaviors.AppendBehavior var appendBehavior: Int = AppendBehaviors.Any) {
+ override val appendBehaviour: AppendBehaviour = AppendBehaviour.Any) : Card {
 
 	var title: String? = null
 
@@ -150,31 +150,12 @@ open class TableCard
 	 * @param requireWrapper FrameView wrapper for margin
 	 * @return card view with the new table
 	 */
-	fun getView(context: Context, recycle: View?, requireWrapper: Boolean, @StyleRes theme: Int): View {
+	override fun getView(context: Context, recycle: View?, requireWrapper: Boolean, @StyleRes theme: Int): View {
 		val r = context.resources
-		var addWrapper = wrapperMarginDp != 0 || requireWrapper
+		val addWrapper = wrapperMarginDp != 0 || requireWrapper
 
 		var cardView: CardView? = null
 		var frameLayout: FrameLayout? = null
-
-		/*if (recycle != null) {
-			if (recycle is CardView) {
-				cardView = recycle
-			} else if (recycle is FrameLayout) {
-				val viewTest = recycle.getChildAt(0)
-				if (viewTest is CardView) {
-					cardView = viewTest
-					frameLayout = recycle
-					//For some reason there can be view or views that have HW acceleration disabled
-					//and without it shadows are not drawn. This solution recreates those views and fixes the issue
-					addWrapper = if (!frameLayout.isHardwareAccelerated) {
-						recycle.removeView(cardView)
-						true
-					} else
-						false
-				}
-			}
-		}*/
 
 		if (cardView == null)
 			cardView = CardView(context, null, theme)
