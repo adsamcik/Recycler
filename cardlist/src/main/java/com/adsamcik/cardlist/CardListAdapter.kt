@@ -4,16 +4,16 @@ import android.content.Context
 import android.os.Build
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.FrameLayout
 import androidx.annotation.StyleRes
+import androidx.recyclerview.widget.RecyclerView
 import com.adsamcik.cardlist.Util.toPx
 import java.util.ArrayList
 import kotlin.Comparator
 
-open class CardListAdapter(context: Context, itemMarginDp: Int, @param:StyleRes @field:StyleRes
-private val themeInt: Int) : BaseAdapter() {
-	private val tableCards: ArrayList<Card> = ArrayList()
+open class CardListAdapter<VH>(context: Context, itemMarginDp: Int, @param:StyleRes @field:StyleRes
+private val themeInt: Int) : RecyclerView.Adapter<VH>() where VH : RecyclerView.ViewHolder {
+	private val tableCards: ArrayList<Card<VH>> = ArrayList()
 	private val context: Context = context.applicationContext
 
 	private val itemMarginPx: Int = itemMarginDp.toPx()
@@ -61,6 +61,22 @@ private val themeInt: Int) : BaseAdapter() {
 		notifyDataSetChanged()
 	}
 
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+		val v = tableCards[i].createView(context, view, true, themeInt, 16) as ViewGroup
+
+		val lp = v.getChildAt(0).layoutParams as FrameLayout.LayoutParams
+		lp.setMargins(lp.leftMargin, if (i > 0) itemMarginPx / 2 else itemMarginPx, lp.rightMargin, if (i < count - 1) itemMarginPx / 2 else itemMarginPx)
+		v.layoutParams = lp
+	}
+
+	override fun getItemCount(): Int {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
+	override fun onBindViewHolder(holder: VH, position: Int) {
+		TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+	}
+
 	override fun getCount(): Int {
 		return tableCards.size
 	}
@@ -74,11 +90,7 @@ private val themeInt: Int) : BaseAdapter() {
 	}
 
 	override fun getView(i: Int, view: View?, viewGroup: ViewGroup): View {
-		val v = tableCards[i].getView(context, view, true, themeInt) as ViewGroup
 
-		val lp = v.getChildAt(0).layoutParams as FrameLayout.LayoutParams
-		lp.setMargins(lp.leftMargin, if (i > 0) itemMarginPx / 2 else itemMarginPx, lp.rightMargin, if (i < count - 1) itemMarginPx / 2 else itemMarginPx)
-		v.layoutParams = lp
 		return v
 	}
 }

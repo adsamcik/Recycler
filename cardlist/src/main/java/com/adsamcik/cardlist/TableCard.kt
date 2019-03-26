@@ -1,17 +1,18 @@
 package com.adsamcik.cardlist
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.text.TextUtils
 import android.util.Pair
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
 import androidx.annotation.StyleRes
 import androidx.cardview.widget.CardView
-import androidx.core.graphics.ColorUtils
 import com.adsamcik.cardlist.Util.formatNumber
 import com.adsamcik.cardlist.Util.getAccentColor
 import com.adsamcik.cardlist.Util.getPressedColorRippleDrawable
@@ -27,9 +28,8 @@ open class TableCard
  * @param showNumber show number of row (starts at 1)
  */
 (private val showNumber: Boolean,
- private val wrapperMarginDp: Int,
  rowCount: Int = 4,
- override val appendBehaviour: AppendBehaviour = AppendBehaviour.Any) : Card {
+ override val appendBehaviour: AppendBehaviour = AppendBehaviour.Any) : Card() {
 
 	var title: String? = null
 
@@ -37,16 +37,6 @@ open class TableCard
 	private var buttons: ArrayList<Pair<String, View.OnClickListener>> = ArrayList(0)
 
 	private var dividerColor = 0
-
-	private fun updateDividerColor(cardView: androidx.cardview.widget.CardView) {
-		val color = cardView.cardBackgroundColor.defaultColor
-		val lum = ColorUtils.calculateLuminance(color)
-
-		dividerColor = if (lum > 0.5)
-			Color.argb(30, 0, 0, 0)
-		else
-			Color.argb(30, 255, 255, 255)
-	}
 
 	/**
 	 * Add button to the bottom of the table
@@ -150,19 +140,10 @@ open class TableCard
 	 * @param requireWrapper FrameView wrapper for margin
 	 * @return card view with the new table
 	 */
-	override fun getView(context: Context, recycle: View?, requireWrapper: Boolean, @StyleRes theme: Int): View {
+	override fun createView(context: Context, recycle: View?, requireWrapper: Boolean, @StyleRes theme: Int, wrapperMarginDp: Int): View {
+		val cardView = super.createView(context, recycle, requireWrapper, theme, wrapperMarginDp) as CardView
+
 		val r = context.resources
-		val addWrapper = wrapperMarginDp != 0 || requireWrapper
-
-		var cardView: CardView? = null
-		var frameLayout: FrameLayout? = null
-
-		if (cardView == null)
-			cardView = CardView(context, null, theme)
-
-		if (dividerColor == 0)
-			updateDividerColor(cardView)
-
 		val padding = r.getDimension(R.dimen.table_padding).toInt()
 		val itemVerticalPadding = r.getDimension(R.dimen.table_item_vertical_padding).toInt()
 
@@ -216,20 +197,7 @@ open class TableCard
 		val buttonsRow = generateButtonsRow(context, theme, padding)
 		if (buttonsRow != null)
 			layout.addView(buttonsRow)
-
-		if (addWrapper) {
-			frameLayout = FrameLayout(context)
-
-			if (wrapperMarginDp != 0) {
-				val layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-				val margin = wrapperMarginDp.toPx()
-				layoutParams.setMargins(margin, margin, margin, margin)
-				cardView.layoutParams = layoutParams
-			}
-			frameLayout.addView(cardView)
-		}
-
-		return frameLayout ?: cardView
+		return cardView
 	}
 }
 
