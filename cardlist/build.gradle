@@ -44,10 +44,10 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
-    implementation 'androidx.cardview:cardview:1.0.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.cardview:cardview:1.0.0'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
@@ -58,16 +58,16 @@ dokka {
 
 ext {
     bintrayRepo = 'android-components'
-    bintrayName = 'table'
+    bintrayName = 'cardlist'
 
     publishedGroupId = 'com.adsamcik.android-components'
-    libraryName = 'table'
-    artifact = 'table'
+    libraryName = 'cardlist'
+    artifact = 'cardlist'
 
-    libraryDescription = 'Table inside a card for ListView'
+    libraryDescription = 'Components to help with creating lists of cards'
 
-    siteUrl = 'https://github.com/adsamcik/Table'
-    gitUrl = 'https://github.com/adsamcik/Table.git'
+    siteUrl = 'https://github.com/adsamcik/CardList'
+    gitUrl = 'https://github.com/adsamcik/CardList.git'
 
     libraryVersion = "$version"
 
