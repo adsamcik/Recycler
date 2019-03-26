@@ -1,21 +1,21 @@
-package com.adsamcik.table
+package com.adsamcik.cardlist
 
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import android.support.annotation.StyleRes
-import android.support.v4.graphics.ColorUtils
-import android.support.v7.widget.CardView
+import androidx.annotation.StyleRes
+import androidx.core.graphics.ColorUtils
+import androidx.cardview.widget.CardView
 import android.text.TextUtils
 import android.util.Pair
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.adsamcik.table.Util.formatNumber
-import com.adsamcik.table.Util.getAccentColor
-import com.adsamcik.table.Util.getPressedColorRippleDrawable
-import com.adsamcik.table.Util.toPx
+import com.adsamcik.cardlist.Util.formatNumber
+import com.adsamcik.cardlist.Util.getAccentColor
+import com.adsamcik.cardlist.Util.getPressedColorRippleDrawable
+import com.adsamcik.cardlist.Util.toPx
 import java.util.*
 
 open class Table
@@ -37,7 +37,7 @@ open class Table
 
     private var dividerColor = 0
 
-    private fun updateDividerColor(cardView: CardView) {
+    private fun updateDividerColor(cardView: androidx.cardview.widget.CardView) {
         val color = cardView.cardBackgroundColor.defaultColor
         val lum = ColorUtils.calculateLuminance(color)
 
@@ -272,7 +272,7 @@ open class Table
             frameLayout.addView(cardView)
         }
 
-        return if (frameLayout != null) frameLayout else cardView
+        return frameLayout ?: cardView
     }
 }
 

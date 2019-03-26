@@ -1,13 +1,13 @@
-package com.adsamcik.table
+package com.adsamcik.cardlist
 
 import android.content.Context
 import android.os.Build
-import android.support.annotation.StyleRes
+import androidx.annotation.StyleRes
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.FrameLayout
-import com.adsamcik.table.Util.toPx
+import com.adsamcik.cardlist.Util.toPx
 import java.util.ArrayList
 import kotlin.Any
 import kotlin.Comparator

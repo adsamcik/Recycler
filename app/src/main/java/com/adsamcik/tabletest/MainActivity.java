@@ -1,13 +1,13 @@
 package com.adsamcik.tabletest;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.adsamcik.table.AppendBehaviors;
-import com.adsamcik.table.Table;
-import com.adsamcik.table.TableAdapter;
+import com.adsamcik.cardlist.AppendBehaviors;
+import com.adsamcik.cardlist.Table;
+import com.adsamcik.cardlist.TableAdapter;
 
 import java.util.Random;
 

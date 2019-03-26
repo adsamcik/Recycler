@@ -1,6 +1,6 @@
-package com.adsamcik.table
+package com.adsamcik.cardlist
 
-import android.support.annotation.IntDef
+import androidx.annotation.IntDef
 
 
 /**

@@ -1,4 +1,4 @@
-package com.adsamcik.table
+package com.adsamcik.cardlist
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -6,7 +6,7 @@ import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.RippleDrawable
-import android.support.annotation.ColorInt
+import androidx.annotation.ColorInt
 import android.util.TypedValue
 import java.text.DecimalFormat
 
