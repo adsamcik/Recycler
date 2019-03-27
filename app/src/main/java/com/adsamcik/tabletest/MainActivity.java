@@ -6,8 +6,8 @@ import android.widget.Toast;
 import com.adsamcik.cardlist.AppendBehaviour;
 import com.adsamcik.cardlist.CardItemDecoration;
 import com.adsamcik.cardlist.CardListAdapter;
-import com.adsamcik.cardlist.Creator;
-import com.adsamcik.cardlist.TableCard;
+import com.adsamcik.cardlist.table.TableCardCreator;
+import com.adsamcik.cardlist.table.TableCard;
 
 import java.util.Random;
 
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_main);
 
 		RecyclerView recyclerView = findViewById(R.id.recycler_view);
-		Creator creator = new Creator(R.style.AppThemeDark);
+		TableCardCreator creator = new TableCardCreator(R.style.AppThemeDark);
 		CardListAdapter adapter = new CardListAdapter<>(R.style.AppThemeDark, creator);
 
 		TableCard first = new TableCard(false, 2, AppendBehaviour.Any);
