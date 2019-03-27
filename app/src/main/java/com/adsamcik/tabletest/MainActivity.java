@@ -1,16 +1,19 @@
 package com.adsamcik.tabletest;
 
 import android.os.Bundle;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.adsamcik.cardlist.AppendBehaviour;
+import com.adsamcik.cardlist.CardItemDecoration;
 import com.adsamcik.cardlist.CardListAdapter;
+import com.adsamcik.cardlist.Creator;
 import com.adsamcik.cardlist.TableCard;
 
 import java.util.Random;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		RecyclerView listView = findViewById(R.id.listview);
-		CardListAdapter adapter = new CardListAdapter(this, 16, R.style.AppThemeDark);
-		listView.setAdapter(adapter);
+		RecyclerView recyclerView = findViewById(R.id.recycler_view);
+		Creator creator = new Creator(R.style.AppThemeDark);
+		CardListAdapter adapter = new CardListAdapter<>(16, R.style.AppThemeDark, creator);
 
 		TableCard first = new TableCard(false, 2, AppendBehaviour.Any);
 		first.addData("hello", "world");
@@ -58,5 +61,12 @@ public class MainActivity extends AppCompatActivity {
 		adapter.add(second);
 
 		adapter.sort();
+
+		LinearLayoutManager manager = new LinearLayoutManager(this);
+		manager.setOrientation(RecyclerView.VERTICAL);
+		RecyclerView.ItemDecoration decoration = new CardItemDecoration();
+		recyclerView.addItemDecoration(decoration);
+		recyclerView.setLayoutManager(manager);
+		recyclerView.setAdapter(adapter);
 	}
 }
