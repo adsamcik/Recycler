@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.3.0] - 27-03-2019
+
+Release 0.3.0 has completely rewritten API and is incompatible with 0.2.0. However it can be used with RecyclerView and be more versatile.
+
+- Rewritten to use RecyclerView instead of ListView
+- Cards are now more versatile and can have custom inside Views
+- Renamed AppendBehavior to AppendBehaviour
+- AppendBehaviour is now enum instead of integer with restrictions
+- Renamed library from Table to CardList to properly reflect new changes
+- Updated to AndroidX
+- Updated dependencies
+
+
+## [0.2.0] - 10-05-2018
+
+- Add additional documentation
+- Rewritten to Kotlin
+
 ## [0.1.2] - 23-11-2017
 
 - Removed unused context from Table constructor
