@@ -1,8 +1,8 @@
 package com.adsamcik.cardlist
 
-abstract class Card {
+interface Card {
 	/**
 	 * Append behaviour helps the sort function with ordering the cards in ListView
 	 */
-	abstract val appendBehaviour: AppendBehaviour
+	val appendBehaviour: AppendBehaviour
 }

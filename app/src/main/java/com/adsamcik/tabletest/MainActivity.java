@@ -12,7 +12,6 @@ import com.adsamcik.cardlist.TableCard;
 import java.util.Random;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
 		RecyclerView recyclerView = findViewById(R.id.recycler_view);
 		Creator creator = new Creator(R.style.AppThemeDark);
-		CardListAdapter adapter = new CardListAdapter<>(16, R.style.AppThemeDark, creator);
+		CardListAdapter adapter = new CardListAdapter<>(R.style.AppThemeDark, creator);
 
 		TableCard first = new TableCard(false, 2, AppendBehaviour.Any);
 		first.addData("hello", "world");

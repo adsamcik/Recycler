@@ -5,24 +5,29 @@ import android.view.ViewGroup
 import androidx.annotation.StyleRes
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.cardlist.Util.toPx
-import java.util.ArrayList
-import kotlin.Comparator
 
-open class CardListAdapter<VH, D>(itemMarginDp: Int,
-                                  @param:StyleRes @field:StyleRes private val themeInt: Int,
+open class CardListAdapter<VH, D>(@param:StyleRes @field:StyleRes private val themeInt: Int,
                                   private val creator: ViewHolderCreator<VH, D>) : RecyclerView.Adapter<VH>() where VH : RecyclerView.ViewHolder, D : Card {
-	private val cardList: ArrayList<D> = ArrayList()
-
-	private val itemMarginPx: Int = itemMarginDp.toPx()
+	private val cardList: MutableList<D> = mutableListOf()
 
 	/**
 	 * Add tableCard to adapter
 	 *
-	 * @param tableCard tableCard
+	 * @param element tableCard
 	 */
-	fun add(tableCard: D) {
-		cardList.add(tableCard)
+	fun add(element: D) {
+		cardList.add(element)
+		notifyDataSetChanged()
+	}
+
+	/**
+	 * Adds list of [D] to the adapter
+	 *
+	 * @param list List of items to add
+	 */
+	fun addAll(list: List<D>) {
+		cardList.addAll(list)
+		notifyDataSetChanged()
 	}
 
 	/**
@@ -43,7 +48,7 @@ open class CardListAdapter<VH, D>(itemMarginDp: Int,
 
 	/**
 	 * Removed all elements with specific [AppendBehaviour]
-	 * @param appendBehaviour append behavior
+	 * @param appendBehaviour Append behaviour
 	 */
 	fun remove(appendBehaviour: AppendBehaviour) {
 		if (Build.VERSION.SDK_INT >= 24)
@@ -56,6 +61,15 @@ open class CardListAdapter<VH, D>(itemMarginDp: Int,
 				i++
 			}
 		}
+		notifyDataSetChanged()
+	}
+
+	/**
+	 * Removes specific element from adapter
+	 * @param element Element to remove
+	 */
+	fun remove(element: D) {
+		cardList.remove(element)
 		notifyDataSetChanged()
 	}
 
