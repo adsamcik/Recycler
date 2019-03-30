@@ -32,11 +32,12 @@ public class MainActivity extends AppCompatActivity {
 		TableCard first = new TableCard(false,  AppendBehaviour.Any, 2);
 		first.addData("hello", "world");
 		first.addData("hi", "world");
-		first.setTitle("FIRST");
+		first.setTitle("Append any");
+
 		TableCard second = new TableCard(true, AppendBehaviour.First, 2);
 		second.addData("numbered", "world");
 		second.addButton("button", view -> Toast.makeText(this, "Clicked a button", Toast.LENGTH_SHORT).show());
-		second.setTitle("second");
+		second.setTitle("Append first");
 
 
 		TableCard third = new TableCard(false, AppendBehaviour.Any, 2);

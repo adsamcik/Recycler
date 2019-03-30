@@ -3,6 +3,7 @@ package com.adsamcik.cardlist.table
 import android.util.Pair
 import android.view.View
 import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.adsamcik.cardlist.AppendBehaviour
@@ -19,7 +20,7 @@ class TableCard
  override val appendBehaviour: AppendBehaviour = AppendBehaviour.Any,
  rowCount: Int = 4) : Card {
 
-	data class ViewHolder(val cardView: View, val titleView: TextView, val layout: TableLayout) : RecyclerView.ViewHolder(cardView)
+	data class ViewHolder(val cardView: View, val layout: TableLayout) : RecyclerView.ViewHolder(cardView)
 
 	var title: String? = null
 

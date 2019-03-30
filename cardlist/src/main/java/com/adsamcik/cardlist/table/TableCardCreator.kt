@@ -21,7 +21,9 @@ import com.adsamcik.cardlist.Util.toPx
 import com.adsamcik.cardlist.ViewHolderCreator
 import java.util.*
 
-class TableCardCreator(override val theme: Int) : ViewHolderCreator<TableCard.ViewHolder, TableCard> {
+class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<TableCard.ViewHolder, TableCard> {
+	override fun getTheme() = theme
+
 	override fun updateView(context: Context, viewHolder: TableCard.ViewHolder, data: TableCard) {
 		data.run {
 			val r = context.resources
@@ -30,6 +32,9 @@ class TableCardCreator(override val theme: Int) : ViewHolderCreator<TableCard.Vi
 
 
 			viewHolder.layout.removeAllViews()
+
+			if (title != null)
+				generateTitleView(context, viewHolder.layout, title!!)
 
 			if (this.data.size > 0) {
 				var rowLayout = generateDataRow(context, showRowNumber, this.data[0], 0, theme)
@@ -58,6 +63,26 @@ class TableCardCreator(override val theme: Int) : ViewHolderCreator<TableCard.Vi
 	}
 
 	private var dividerColor = 0
+
+	private fun generateTitleView(context: Context, layout: TableLayout, title: String) {
+		val titleView = TextView(context, null, theme).apply {
+			textSize = 18f
+			setTypeface(null, Typeface.BOLD)
+			gravity = Gravity.CENTER
+			setLines(1)
+			ellipsize = TextUtils.TruncateAt.END
+
+			val padding = context.resources.getDimension(R.dimen.table_padding).toInt()
+
+			val titleLayoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+			titleLayoutParams.setMargins(padding, 0, padding, 16.toPx())
+			layoutParams = titleLayoutParams
+
+			text = title
+		}
+
+		layout.addView(titleView, 0)
+	}
 
 	private fun updateDividerColor(cardView: androidx.cardview.widget.CardView) {
 		val color = cardView.cardBackgroundColor.defaultColor
@@ -145,34 +170,14 @@ class TableCardCreator(override val theme: Int) : ViewHolderCreator<TableCard.Vi
 			updateDividerColor(parent)
 
 		val context = parent.context
-		val r = context.resources
-		val padding = r.getDimension(R.dimen.table_padding).toInt()
 
-		var layout = parent.getChildAt(0) as TableLayout?
-		if (layout == null) {
-			layout = TableLayout(context)
-			layout.setPadding(0, 30, 0, 30)
-			parent.addView(layout)
-		} else
-			layout.removeAllViews()
-
-		val titleView = layout.getChildAt(0) as TextView?
-				?: TextView(context, null, theme).apply {
-					textSize = 18f
-					setTypeface(null, Typeface.BOLD)
-					gravity = Gravity.CENTER
-					setLines(1)
-					ellipsize = TextUtils.TruncateAt.END
-
-					val titleLayoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-					titleLayoutParams.setMargins(padding, 0, padding, 16.toPx())
-					layoutParams = titleLayoutParams
-
-					layout.addView(this, 0)
-				}
+		val layout = TableLayout(context).apply {
+			setPadding(0, 30, 0, 30)
+			parent.addView(this)
+		}
 
 
-		return TableCard.ViewHolder(parent, titleView, layout)
+		return TableCard.ViewHolder(parent, layout)
 	}
 
 }
