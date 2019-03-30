@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1] - 30-03-2019
+
+- Fixed title not drawing
+- Slight changes to API
+- Refactoring
+
+
 ## [0.3.0] - 27-03-2019
 
 Release 0.3.0 has completely rewritten API and is incompatible with 0.2.0. However it can be used with RecyclerView and be more versatile.
