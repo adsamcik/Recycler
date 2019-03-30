@@ -27,17 +27,19 @@ public class MainActivity extends AppCompatActivity {
 
 		RecyclerView recyclerView = findViewById(R.id.recycler_view);
 		TableCardCreator creator = new TableCardCreator(R.style.AppThemeDark);
-		CardListAdapter adapter = new CardListAdapter<>(R.style.AppThemeDark, creator);
+		CardListAdapter<TableCard.ViewHolder, TableCard> adapter = CardListAdapter.Companion.addTo(recyclerView, creator);
 
-		TableCard first = new TableCard(false, 2, AppendBehaviour.Any);
+		TableCard first = new TableCard(false,  AppendBehaviour.Any, 2);
 		first.addData("hello", "world");
 		first.addData("hi", "world");
-		TableCard second = new TableCard(true, 2, AppendBehaviour.First);
+		first.setTitle("FIRST");
+		TableCard second = new TableCard(true, AppendBehaviour.First, 2);
 		second.addData("numbered", "world");
 		second.addButton("button", view -> Toast.makeText(this, "Clicked a button", Toast.LENGTH_SHORT).show());
+		second.setTitle("second");
 
 
-		TableCard third = new TableCard(false, 2, AppendBehaviour.Any);
+		TableCard third = new TableCard(false, AppendBehaviour.Any, 2);
 		for (int i = 0; i < 10; i++)
 			third.addData("data " + i, Integer.toString(i));
 		third.setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod ipsum vel fermentum vulputate. Nulla ultrices quam ut dolor bibendum semper. Quisque placerat cursus ipsum, sit amet rutrum diam porta sed. Aenean arcu est, scelerisque non neque sed, vulputate lacinia risus. In aliquet egestas ullamcorper. Phasellus vitae nunc aliquet, tincidunt metus ut, maximus magna. Nam fringilla porta enim euismod sagittis. Praesent placerat lacinia mauris id tempor. Nullam vulputate, nibh in tincidunt tempus, mauris libero sagittis arcu, a mollis libero tortor non ante. ");
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 		adapter.add(first);
 		Random random = new Random();
 		for (int i = 0; i < 10; i++) {
-			TableCard tb = new TableCard(false, 2, AppendBehaviour.Any);
+			TableCard tb = new TableCard(false,  AppendBehaviour.Any, 2);
 			int rn = 3 + random.nextInt(9);
 			for (int y = 0; y < rn; y++) {
 				if (y % 2 == 0)
@@ -63,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
 		LinearLayoutManager manager = new LinearLayoutManager(this);
 		manager.setOrientation(RecyclerView.VERTICAL);
-		RecyclerView.ItemDecoration decoration = new CardItemDecoration();
-		recyclerView.addItemDecoration(decoration);
 		recyclerView.setLayoutManager(manager);
-		recyclerView.setAdapter(adapter);
 	}
 }

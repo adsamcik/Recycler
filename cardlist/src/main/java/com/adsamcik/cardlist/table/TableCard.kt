@@ -13,11 +13,11 @@ class TableCard
  * TableCard constructor
  *
  * @param rowCount   number of data (used to initialize array holding data)
- * @param showNumber show number of row (starts at 1)
+ * @param showRowNumber show number of row (starts at 1)
  */
-(val showNumber: Boolean,
- val rowCount: Int = 4,
- override val appendBehaviour: AppendBehaviour = AppendBehaviour.Any) : Card {
+(val showRowNumber: Boolean,
+ override val appendBehaviour: AppendBehaviour = AppendBehaviour.Any,
+ rowCount: Int = 4) : Card {
 
 	data class ViewHolder(val cardView: View, val titleView: TextView, val layout: TableLayout) : RecyclerView.ViewHolder(cardView)
 
