@@ -40,7 +40,7 @@ open class CardListAdapter<VH, D>(private val creator: ViewHolderCreator<VH, D>)
 	 * Sorts tableCards based on their [AppendBehaviour].
 	 */
 	fun sort() {
-		cardList.sortWith(Comparator { tx, ty -> tx.appendBehaviour.ordinal - ty.appendBehaviour.ordinal })
+		cardList.sortBy { it.appendBehaviour.ordinal }
 		notifyDataSetChanged()
 	}
 
