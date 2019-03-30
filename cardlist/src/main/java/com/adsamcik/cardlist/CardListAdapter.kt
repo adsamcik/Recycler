@@ -2,12 +2,10 @@ package com.adsamcik.cardlist
 
 import android.os.Build
 import android.view.ViewGroup
-import androidx.annotation.StyleRes
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
-open class CardListAdapter<VH, D>(@param:StyleRes @field:StyleRes private val themeInt: Int,
-                                  private val creator: ViewHolderCreator<VH, D>) : RecyclerView.Adapter<VH>() where VH : RecyclerView.ViewHolder, D : Card {
+open class CardListAdapter<VH, D>(private val creator: ViewHolderCreator<VH, D>) : RecyclerView.Adapter<VH>() where VH : RecyclerView.ViewHolder, D : Card {
 	private val cardList: MutableList<D> = mutableListOf()
 
 	/**
@@ -74,7 +72,7 @@ open class CardListAdapter<VH, D>(@param:StyleRes @field:StyleRes private val th
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-		val cardView = CardView(parent.context, null, themeInt)
+		val cardView = CardView(parent.context, null, creator.getTheme())
 		val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
 		cardView.layoutParams = layoutParams
 
@@ -85,5 +83,15 @@ open class CardListAdapter<VH, D>(@param:StyleRes @field:StyleRes private val th
 
 	override fun onBindViewHolder(holder: VH, position: Int) {
 		creator.updateView(holder.itemView.context, holder, cardList[position])
+	}
+
+
+	companion object {
+		fun <VH, D> addTo(recyclerView: RecyclerView, creator: ViewHolderCreator<VH, D>) : CardListAdapter<VH, D> where VH : RecyclerView.ViewHolder, D : Card {
+			val adapter = CardListAdapter(creator)
+			recyclerView.adapter = adapter
+			recyclerView.addItemDecoration(CardItemDecoration())
+			return adapter
+		}
 	}
 }

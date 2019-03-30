@@ -21,7 +21,7 @@ import com.adsamcik.cardlist.Util.toPx
 import com.adsamcik.cardlist.ViewHolderCreator
 import java.util.*
 
-class TableCardCreator(private val theme: Int) : ViewHolderCreator<TableCard.ViewHolder, TableCard> {
+class TableCardCreator(override val theme: Int) : ViewHolderCreator<TableCard.ViewHolder, TableCard> {
 	override fun updateView(context: Context, viewHolder: TableCard.ViewHolder, data: TableCard) {
 		data.run {
 			val r = context.resources
@@ -32,7 +32,7 @@ class TableCardCreator(private val theme: Int) : ViewHolderCreator<TableCard.Vie
 			viewHolder.layout.removeAllViews()
 
 			if (this.data.size > 0) {
-				var rowLayout = generateDataRow(context, showNumber, this.data[0], 0, theme)
+				var rowLayout = generateDataRow(context, showRowNumber, this.data[0], 0, theme)
 				rowLayout.setPadding(padding, itemVerticalPadding, padding, itemVerticalPadding)
 				viewHolder.layout.addView(rowLayout)
 				if (this.data.size > 1) {
@@ -44,7 +44,7 @@ class TableCardCreator(private val theme: Int) : ViewHolderCreator<TableCard.Vie
 						divider.setBackgroundColor(dividerColor)
 						viewHolder.layout.addView(divider)
 
-						rowLayout = generateDataRow(context, showNumber, this.data[i], i, theme)
+						rowLayout = generateDataRow(context, showRowNumber, this.data[i], i, theme)
 						rowLayout.setPadding(padding, itemVerticalPadding, padding, itemVerticalPadding)
 						viewHolder.layout.addView(rowLayout)
 					}
