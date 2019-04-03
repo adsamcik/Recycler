@@ -21,6 +21,9 @@ import com.adsamcik.cardlist.Util.toPx
 import com.adsamcik.cardlist.ViewHolderCreator
 import java.util.*
 
+/**
+ * Implementation of [ViewHolderCreator] for use with [TableCard]
+ */
 class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<TableCard.ViewHolder, TableCard> {
 	override fun getTheme() = theme
 
