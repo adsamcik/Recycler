@@ -27,8 +27,8 @@ import java.util.*
 class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<TableCard.ViewHolder, TableCard> {
 	override fun getTheme() = theme
 
-	override fun updateView(context: Context, viewHolder: TableCard.ViewHolder, data: TableCard) {
-		data.run {
+	override fun updateView(context: Context, viewHolder: TableCard.ViewHolder, card: TableCard) {
+		card.run {
 			val r = context.resources
 			val padding = r.getDimension(R.dimen.table_padding).toInt()
 			val itemVerticalPadding = r.getDimension(R.dimen.table_item_vertical_padding).toInt()
@@ -40,23 +40,20 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 			if (title != null)
 				generateTitleView(context, viewHolder.layout, title)
 
-			if (this.data.size > 0) {
-				var rowLayout = generateDataRow(context, showRowNumber, this.data[0], 0, theme)
-				rowLayout.setPadding(padding, itemVerticalPadding, padding, itemVerticalPadding)
-				viewHolder.layout.addView(rowLayout)
-				if (this.data.size > 1) {
-					val layoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1.toPx())
+			if (data.isNotEmpty()) {
+				val layoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1.toPx())
 
-					for (i in 1 until this.data.size) {
+				for (i in 0 until data.size) {
+					if (i > 0) {
 						val divider = View(context)
 						divider.layoutParams = layoutParams
 						divider.setBackgroundColor(dividerColor)
 						viewHolder.layout.addView(divider)
-
-						rowLayout = generateDataRow(context, showRowNumber, this.data[i], i, theme)
-						rowLayout.setPadding(padding, itemVerticalPadding, padding, itemVerticalPadding)
-						viewHolder.layout.addView(rowLayout)
 					}
+
+					val rowLayout = generateDataRow(context, showRowNumber, data[i], i, theme)
+					rowLayout.setPadding(padding, itemVerticalPadding, padding, itemVerticalPadding)
+					viewHolder.layout.addView(rowLayout)
 				}
 			}
 
@@ -154,7 +151,7 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		return row
 	}
 
-	private fun generateButtonsRow(buttons: ArrayList<Pair<String, View.OnClickListener>>, context: Context, @StyleRes theme: Int, sideMargin: Int): TableRow? {
+	private fun generateButtonsRow(buttons: List<Pair<String, View.OnClickListener>>, context: Context, @StyleRes theme: Int, sideMargin: Int): TableRow? {
 		if (buttons.isNotEmpty()) {
 			val row = TableRow(context)
 			val lp = TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)

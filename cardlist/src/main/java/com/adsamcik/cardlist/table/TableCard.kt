@@ -28,11 +28,11 @@ class TableCard
 	 */
 	var title: String? = null
 
-	private val mutableData: MutableCollection<Pair<String, String>> = ArrayList(rowCount)
-	val data: Collection<Pair<String, String>> get() = mutableData
+	private val mutableData: MutableList<Pair<String, String>> = ArrayList(rowCount)
+	val data: List<Pair<String, String>> get() = mutableData
 
-	private val mutableButtons: MutableCollection<Pair<String, View.OnClickListener>> = ArrayList(0)
-	val buttons: Collection<Pair<String, View.OnClickListener>> get() = mutableButtons
+	private val mutableButtons: MutableList<Pair<String, View.OnClickListener>> = ArrayList(0)
+	val buttons: List<Pair<String, View.OnClickListener>> get() = mutableButtons
 
 
 	/**
