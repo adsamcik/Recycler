@@ -3,12 +3,13 @@ package com.adsamcik.cardlist.table
 import android.util.Pair
 import android.view.View
 import android.widget.TableLayout
-import android.widget.TableRow
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.adsamcik.cardlist.AppendBehaviour
 import com.adsamcik.cardlist.Card
 
+/**
+ * Implementation of [Card] that allows displaying of simple tables inside a card.
+ */
 class TableCard
 /**
  * TableCard constructor
@@ -22,10 +23,16 @@ class TableCard
 
 	data class ViewHolder(val cardView: View, val layout: TableLayout) : RecyclerView.ViewHolder(cardView)
 
+	/**
+	 * Table title
+	 */
 	var title: String? = null
 
-	val data: ArrayList<Pair<String, String>> = ArrayList(rowCount)
-	var buttons: ArrayList<Pair<String, View.OnClickListener>> = ArrayList(0)
+	private val mutableData: MutableCollection<Pair<String, String>> = ArrayList(rowCount)
+	val data: Collection<Pair<String, String>> get() = mutableData
+
+	private val mutableButtons: MutableCollection<Pair<String, View.OnClickListener>> = ArrayList(0)
+	val buttons: Collection<Pair<String, View.OnClickListener>> get() = mutableButtons
 
 
 	/**
@@ -36,7 +43,7 @@ class TableCard
 	 * @return this table
 	 */
 	fun addButton(text: String, callback: View.OnClickListener): TableCard {
-		buttons.add(Pair(text, callback))
+		mutableButtons.add(Pair(text, callback))
 		return this
 	}
 
@@ -48,7 +55,7 @@ class TableCard
 	 * @return this table
 	 */
 	fun addData(name: String, value: String): TableCard {
-		data.add(Pair(name, value))
+		mutableData.add(Pair(name, value))
 		return this
 	}
 }
