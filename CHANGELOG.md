@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.3.2] - 03-04-2019
+
+- Add documentation
+- TableCard now exposes all collections as immutable (Removing is still not supported)
+- Refactoring
+
 ## [0.3.1] - 30-03-2019
 
 - Fixed title not drawing
