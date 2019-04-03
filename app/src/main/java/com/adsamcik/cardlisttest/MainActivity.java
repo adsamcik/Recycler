@@ -1,10 +1,9 @@
-package com.adsamcik.tabletest;
+package com.adsamcik.cardlisttest;
 
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.adsamcik.cardlist.AppendBehaviour;
-import com.adsamcik.cardlist.CardItemDecoration;
 import com.adsamcik.cardlist.CardListAdapter;
 import com.adsamcik.cardlist.table.TableCardCreator;
 import com.adsamcik.cardlist.table.TableCard;

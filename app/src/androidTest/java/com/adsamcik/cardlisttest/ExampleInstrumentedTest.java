@@ -1,4 +1,4 @@
-package com.adsamcik.tabletest;
+package com.adsamcik.cardlisttest;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
