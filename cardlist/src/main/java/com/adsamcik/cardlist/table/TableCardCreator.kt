@@ -33,8 +33,9 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 
 			viewHolder.layout.removeAllViews()
 
+			val title = title
 			if (title != null)
-				generateTitleView(context, viewHolder.layout, title!!)
+				generateTitleView(context, viewHolder.layout, title)
 
 			if (this.data.size > 0) {
 				var rowLayout = generateDataRow(context, showRowNumber, this.data[0], 0, theme)
