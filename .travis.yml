@@ -24,7 +24,6 @@ android:
   components:
   - tools
   - platform-tools
-  - tools
 
   #android
   - build-tools-$ANDROID_BUILD_TOOLS
@@ -32,7 +31,6 @@ android:
   #- android-$EMULATOR_API
 
   #extras
-  - extra-android-support
   - extra-google-google_play_services
   - extra-google-m2repository
   - extra-android-m2repository
