@@ -1,5 +1,6 @@
 package com.adsamcik.recycler.card.table
 
+import android.util.Pair
 import android.view.View
 import android.widget.TableLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +37,7 @@ open class TableCard
 	 * @return this table
 	 */
 	fun addButton(text: String, callback: View.OnClickListener): TableCard {
-		mutableButtons.add(text to callback)
+		mutableButtons.add(Pair(text, callback))
 		return this
 	}
 
@@ -48,7 +49,7 @@ open class TableCard
 	 * @return this table
 	 */
 	fun addData(name: String, value: String): TableCard {
-		mutableData.add(name to value)
+		mutableData.add(Pair(name, value))
 		return this
 	}
 }
