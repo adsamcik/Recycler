@@ -1,9 +1,9 @@
-package com.adsamcik.cardlist.card
+package com.adsamcik.recycler.card
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.cardlist.Util.toPx
+import com.adsamcik.recycler.Util.toPx
 
 /**
  * Implementation of [RecyclerView.ItemDecoration] for [CardListAdapter]. It will add uniform margin to all sides.

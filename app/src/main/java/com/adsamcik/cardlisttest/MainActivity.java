@@ -3,11 +3,11 @@ package com.adsamcik.cardlisttest;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.adsamcik.cardlist.AppendBehavior;
-import com.adsamcik.cardlist.AppendPriority;
-import com.adsamcik.cardlist.card.CardListAdapter;
-import com.adsamcik.cardlist.card.table.TableCardCreator;
-import com.adsamcik.cardlist.card.table.TableCard;
+import com.adsamcik.recycler.AppendBehavior;
+import com.adsamcik.recycler.AppendPriority;
+import com.adsamcik.recycler.card.CardListAdapter;
+import com.adsamcik.recycler.card.table.TableCardCreator;
+import com.adsamcik.recycler.card.table.TableCard;
 
 import java.util.Random;
 

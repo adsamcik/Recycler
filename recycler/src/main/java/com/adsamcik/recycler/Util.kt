@@ -1,4 +1,4 @@
-package com.adsamcik.cardlist
+package com.adsamcik.recycler
 
 import android.content.Context
 import android.content.res.ColorStateList

@@ -1,4 +1,4 @@
-package com.adsamcik.cardlist;
+package com.adsamcik.recycler;
 
 import org.junit.Test;
 

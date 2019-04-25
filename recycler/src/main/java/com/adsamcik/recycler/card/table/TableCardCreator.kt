@@ -1,4 +1,4 @@
-package com.adsamcik.cardlist.card.table
+package com.adsamcik.recycler.card.table
 
 import android.content.Context
 import android.graphics.Color
@@ -15,10 +15,10 @@ import android.widget.TextView
 import androidx.annotation.StyleRes
 import androidx.cardview.widget.CardView
 import androidx.core.graphics.ColorUtils
-import com.adsamcik.cardlist.R
-import com.adsamcik.cardlist.Util
-import com.adsamcik.cardlist.Util.toPx
-import com.adsamcik.cardlist.ViewHolderCreator
+import com.adsamcik.recycler.R
+import com.adsamcik.recycler.Util
+import com.adsamcik.recycler.Util.toPx
+import com.adsamcik.recycler.ViewHolderCreator
 import java.util.*
 
 /**

@@ -1,11 +1,11 @@
-package com.adsamcik.cardlist.card.table
+package com.adsamcik.recycler.card.table
 
 import android.util.Pair
 import android.view.View
 import android.widget.TableLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.cardlist.AppendPriority
-import com.adsamcik.cardlist.card.Card
+import com.adsamcik.recycler.AppendPriority
+import com.adsamcik.recycler.card.Card
 
 /**
  * Implementation of [Card] that allows displaying of simple tables inside a card.

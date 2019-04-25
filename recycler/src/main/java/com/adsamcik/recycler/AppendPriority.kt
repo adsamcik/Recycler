@@ -1,4 +1,4 @@
-package com.adsamcik.cardlist
+package com.adsamcik.recycler
 
 
 /**
@@ -12,9 +12,9 @@ data class AppendPriority(val behavior: AppendBehavior, var priority: Int = 0) {
 
 	//Kotlin shortcuts
 	companion object {
-		inline val Any get() = AppendPriority(AppendBehavior.Any)
-		inline val Start get() = AppendPriority(AppendBehavior.Start)
-		inline val End get() = AppendPriority(AppendBehavior.End)
+		inline val Any: AppendPriority get() = AppendPriority(AppendBehavior.Any)
+		inline val Start: AppendPriority get() = AppendPriority(AppendBehavior.Start)
+		inline val End: AppendPriority get() = AppendPriority(AppendBehavior.End)
 	}
 }
 

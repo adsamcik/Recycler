@@ -1,6 +1,6 @@
-package com.adsamcik.cardlist.card
+package com.adsamcik.recycler.card
 
-import com.adsamcik.cardlist.AppendPriority
+import com.adsamcik.recycler.AppendPriority
 
 /**
  * Card interface used by [CardListAdapter]
