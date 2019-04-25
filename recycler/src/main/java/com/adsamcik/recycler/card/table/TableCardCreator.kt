@@ -27,12 +27,12 @@ import java.util.*
 class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<TableCard.ViewHolder, TableCard> {
 	override fun getTheme() = theme
 
+	private var dividerColor = 0
+
 	override fun updateView(context: Context, viewHolder: TableCard.ViewHolder, card: TableCard) {
 		card.run {
-			val r = context.resources
-			val padding = r.getDimension(R.dimen.table_padding).toInt()
-			val itemVerticalPadding = r.getDimension(R.dimen.table_item_vertical_padding).toInt()
-
+			val resources = context.resources
+			val padding = resources.getDimension(R.dimen.table_padding).toInt()
 
 			viewHolder.layout.removeAllViews()
 
@@ -40,30 +40,31 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 			if (title != null)
 				generateTitleView(context, viewHolder.layout, title)
 
-			if (data.isNotEmpty()) {
-				val layoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1.toPx())
+			generateDataRows(context, viewHolder.layout, padding, card)
 
-				for (i in 0 until data.size) {
-					if (i > 0) {
-						val divider = View(context)
-						divider.layoutParams = layoutParams
-						divider.setBackgroundColor(dividerColor)
-						viewHolder.layout.addView(divider)
-					}
-
-					val rowLayout = generateDataRow(context, showRowNumber, data[i], i, theme)
-					rowLayout.setPadding(padding, itemVerticalPadding, padding, itemVerticalPadding)
-					viewHolder.layout.addView(rowLayout)
-				}
-			}
-
-			val buttonsRow = generateButtonsRow(buttons, context, theme, padding)
-			if (buttonsRow != null)
-				viewHolder.layout.addView(buttonsRow)
+			generateButtonsRow(buttons, context, theme, padding)?.also { viewHolder.layout.addView(it) }
 		}
 	}
 
-	private var dividerColor = 0
+	private fun generateDataRows(context: Context, rootLayout: ViewGroup, padding: Int, card: TableCard) {
+		if (card.data.isEmpty()) return
+
+		val layoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1.toPx())
+		val itemVerticalPadding = context.resources.getDimension(R.dimen.table_item_vertical_padding).toInt()
+
+		for (i in 0 until card.data.size) {
+			if (i > 0) {
+				val divider = View(context)
+				divider.layoutParams = layoutParams
+				divider.setBackgroundColor(dividerColor)
+				rootLayout.addView(divider)
+			}
+
+			val rowLayout = generateDataRow(context, card.showRowNumber, card.data[i], i, theme)
+			rowLayout.setPadding(padding, itemVerticalPadding, padding, itemVerticalPadding)
+			rootLayout.addView(rowLayout)
+		}
+	}
 
 	private fun generateTitleView(context: Context, layout: TableLayout, title: String) {
 		val titleView = TextView(context, null, theme).apply {
@@ -85,7 +86,7 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		layout.addView(titleView, 0)
 	}
 
-	private fun updateDividerColor(cardView: androidx.cardview.widget.CardView) {
+	private fun updateDividerColor(cardView: CardView) {
 		val color = cardView.cardBackgroundColor.defaultColor
 		val lum = ColorUtils.calculateLuminance(color)
 
