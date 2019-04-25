@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.TableLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.adsamcik.recycler.AppendPriority
-import com.adsamcik.recycler.card.Card
 
 /**
  * Implementation of [Card] that allows displaying of simple tables inside a card.
@@ -18,8 +17,7 @@ class TableCard
  * @param showRowNumber show number of row (starts at 1)
  */
 (val showRowNumber: Boolean,
- override val appendPriority: AppendPriority = AppendPriority.Any,
- rowCount: Int = 4) : Card {
+ rowCount: Int = 4) {
 
 	data class ViewHolder(val cardView: View, val layout: TableLayout) : RecyclerView.ViewHolder(cardView)
 

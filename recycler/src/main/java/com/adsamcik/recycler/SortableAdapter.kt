@@ -17,7 +17,7 @@ abstract class SortableAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.A
 	 * @param element tableCard
 	 */
 	fun add(element: T, priority: AppendPriority) {
-		add(SortableData(priority, element))
+		add(SortableData(element, priority))
 	}
 
 	fun add(data: SortableData<T>) {
@@ -65,7 +65,7 @@ abstract class SortableAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.A
 
 	fun size() = dataList.size()
 
-	data class SortableData<T>(val priority: AppendPriority, val data: T)
+	data class SortableData<T>(val data: T, val priority: AppendPriority = AppendPriority.Any)
 
 	inner class SortedListCallback : SortedList.Callback<SortableData<*>>() {
 		override fun areItemsTheSame(item1: SortableData<*>, item2: SortableData<*>): Boolean {

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.adsamcik.recycler.SortableAdapter
 import com.adsamcik.recycler.ViewHolderCreator
 
-open class CardListAdapter<VH, D>(private val creator: ViewHolderCreator<VH, D>) : SortableAdapter<D, VH>() where VH : RecyclerView.ViewHolder, D : Card {
+open class CardListAdapter<VH : RecyclerView.ViewHolder, D>(private val creator: ViewHolderCreator<VH, D>) : SortableAdapter<D, VH>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
 		val cardView = CardView(parent.context, null, creator.getTheme())
@@ -23,7 +23,7 @@ open class CardListAdapter<VH, D>(private val creator: ViewHolderCreator<VH, D>)
 
 
 	companion object {
-		fun <VH, D> addTo(recyclerView: RecyclerView, creator: ViewHolderCreator<VH, D>): CardListAdapter<VH, D> where VH : RecyclerView.ViewHolder, D : Card {
+		fun <VH : RecyclerView.ViewHolder, D> addTo(recyclerView: RecyclerView, creator: ViewHolderCreator<VH, D>): CardListAdapter<VH, D> {
 			val adapter = CardListAdapter(creator)
 			recyclerView.adapter = adapter
 			recyclerView.addItemDecoration(CardItemDecoration())

@@ -4,9 +4,8 @@ import android.content.Context
 import androidx.annotation.StyleRes
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.recycler.card.Card
 
-interface ViewHolderCreator<VH, D> where VH : RecyclerView.ViewHolder, D : Card {
+interface ViewHolderCreator<VH, D> where VH : RecyclerView.ViewHolder {
 
 	/**
 	 *  Returns int [StyleRes] for theme that should be used
