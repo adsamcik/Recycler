@@ -1,15 +1,10 @@
 package com.adsamcik.recycler.card.table
 
-import android.util.Pair
 import android.view.View
 import android.widget.TableLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.recycler.AppendPriority
 
-/**
- * Implementation of [Card] that allows displaying of simple tables inside a card.
- */
-class TableCard
+open class TableCard
 /**
  * TableCard constructor
  *
@@ -41,7 +36,7 @@ class TableCard
 	 * @return this table
 	 */
 	fun addButton(text: String, callback: View.OnClickListener): TableCard {
-		mutableButtons.add(Pair(text, callback))
+		mutableButtons.add(text to callback)
 		return this
 	}
 
@@ -53,7 +48,7 @@ class TableCard
 	 * @return this table
 	 */
 	fun addData(name: String, value: String): TableCard {
-		mutableData.add(Pair(name, value))
+		mutableData.add(name to value)
 		return this
 	}
 }
