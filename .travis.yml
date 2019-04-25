@@ -21,7 +21,6 @@ cache:
   - $HOME/.android/build-cache
 
 android:
-  update_sdk: true
   components:
   - tools
   - platform-tools
@@ -30,7 +29,7 @@ android:
   #android
   - build-tools-$ANDROID_BUILD_TOOLS
   - android-$ANDROID_API
-  - android-$EMULATOR_API
+  #- android-$EMULATOR_API
 
   #extras
   - extra-android-support
@@ -39,18 +38,18 @@ android:
   - extra-android-m2repository
 
   #system images
-  - sys-img-$ANDROID_ABI-android-$EMULATOR_API
+  #- sys-img-$ANDROID_ABI-android-$EMULATOR_API
 
 
-before_script:
-- echo no | android create avd --force -n test -t android-$EMULATOR_API --abi $ANDROID_ABI
-- emulator -avd test -no-audio -no-window &
-- android-wait-for-emulator
-- adb shell input keyevent 82 &
+#before_script:
+#- echo no | android create avd --force -n test -t android-$EMULATOR_API --abi $ANDROID_ABI
+#- emulator -avd test -no-audio -no-window &
+#- android-wait-for-emulator
+#- adb shell input keyevent 82 &
 
-before_install:
-- chmod +x gradlew
-- sudo apt-get install jq
+#before_install:
+#- chmod +x gradlew
+#- sudo apt-get install jq
 #- curl $(curl https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r '.assets | map({content_type, browser_download_url} | select(.content_type | contains("application/x-java-archive"))) | .[0].browser_download_url') -o codacy-coverage-reporter-assembly.jar
 
 #after_success:
