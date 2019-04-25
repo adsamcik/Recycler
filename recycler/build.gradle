@@ -9,7 +9,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.dokka'
 
-ext.version = '0.3.2'
+ext.version = '0.4.0'
 
 android {
     compileSdkVersion 28
@@ -59,16 +59,16 @@ dokka {
 
 ext {
     bintrayRepo = 'android-components'
-    bintrayName = 'cardlist'
+    bintrayName = 'recycler'
 
     publishedGroupId = 'com.adsamcik.android-components'
-    libraryName = 'cardlist'
-    artifact = 'cardlist'
+    libraryName = 'recycler'
+    artifact = 'recycler'
 
-    libraryDescription = 'Components to help with creating lists of cards'
+    libraryDescription = 'Components to help with creating recyclers including Sorting Adapter and TableCard Adapter'
 
-    siteUrl = 'https://github.com/adsamcik/CardList'
-    gitUrl = 'https://github.com/adsamcik/CardList.git'
+    siteUrl = 'https://github.com/adsamcik/Recycler'
+    gitUrl = 'https://github.com/adsamcik/Recycler.git'
 
     libraryVersion = "$version"
 

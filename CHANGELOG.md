@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0] - 25-04-2019
+
+- Renamed to Recycler library
+- Add new SortableAdapter which can be used more generally
+- API changes
+- Refactoring
+
 ## [0.3.2] - 03-04-2019
 
 - Add documentation
