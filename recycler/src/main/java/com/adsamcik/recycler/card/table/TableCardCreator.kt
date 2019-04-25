@@ -30,20 +30,16 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 	private var dividerColor = 0
 
 	override fun updateView(context: Context, viewHolder: TableCard.ViewHolder, card: TableCard) {
-		card.run {
-			val resources = context.resources
-			val padding = resources.getDimension(R.dimen.table_padding).toInt()
+		val resources = context.resources
+		val padding = resources.getDimension(R.dimen.table_padding).toInt()
 
-			viewHolder.layout.removeAllViews()
+		viewHolder.layout.removeAllViews()
 
-			val title = title
-			if (title != null)
-				generateTitleView(context, viewHolder.layout, title)
+		card.title?.let { generateTitleView(context, viewHolder.layout, it) }
 
-			generateDataRows(context, viewHolder.layout, padding, card)
+		generateDataRows(context, viewHolder.layout, padding, card)
 
-			generateButtonsRow(buttons, context, theme, padding)?.also { viewHolder.layout.addView(it) }
-		}
+		generateButtonsRow(card.buttons, context, theme, padding)?.also { viewHolder.layout.addView(it) }
 	}
 
 	private fun generateDataRows(context: Context, rootLayout: ViewGroup, padding: Int, card: TableCard) {
@@ -90,10 +86,11 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		val color = cardView.cardBackgroundColor.defaultColor
 		val lum = ColorUtils.calculateLuminance(color)
 
-		dividerColor = if (lum > 0.5)
+		dividerColor = if (lum > 0.5) {
 			Color.argb(30, 0, 0, 0)
-		else
+		} else {
 			Color.argb(30, 255, 255, 255)
+		}
 	}
 
 	private fun generateButton(context: Context, button: Pair<String, View.OnClickListener>, @StyleRes theme: Int): TextView {
@@ -168,8 +165,7 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 	}
 
 	override fun createView(parent: CardView, viewType: Int): TableCard.ViewHolder {
-		if (dividerColor == 0)
-			updateDividerColor(parent)
+		if (dividerColor == 0) updateDividerColor(parent)
 
 		val context = parent.context
 
@@ -177,7 +173,6 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 			setPadding(0, 30, 0, 30)
 			parent.addView(this)
 		}
-
 
 		return TableCard.ViewHolder(parent, layout)
 	}
