@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.annotation.StyleRes
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.adsamcik.cardlist.card.Card
 
 interface ViewHolderCreator<VH, D> where VH : RecyclerView.ViewHolder, D : Card {
 

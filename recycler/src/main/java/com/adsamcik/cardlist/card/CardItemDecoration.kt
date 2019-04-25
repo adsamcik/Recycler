@@ -1,4 +1,4 @@
-package com.adsamcik.cardlist
+package com.adsamcik.cardlist.card
 
 import android.graphics.Rect
 import android.view.View

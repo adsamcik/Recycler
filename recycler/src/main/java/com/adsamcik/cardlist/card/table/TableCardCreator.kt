@@ -1,4 +1,4 @@
-package com.adsamcik.cardlist.table
+package com.adsamcik.cardlist.card.table
 
 import android.content.Context
 import android.graphics.Color

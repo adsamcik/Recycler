@@ -1,11 +1,11 @@
-package com.adsamcik.cardlist.table
+package com.adsamcik.cardlist.card.table
 
 import android.util.Pair
 import android.view.View
 import android.widget.TableLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.cardlist.AppendBehaviour
-import com.adsamcik.cardlist.Card
+import com.adsamcik.cardlist.AppendPriority
+import com.adsamcik.cardlist.card.Card
 
 /**
  * Implementation of [Card] that allows displaying of simple tables inside a card.
@@ -18,7 +18,7 @@ class TableCard
  * @param showRowNumber show number of row (starts at 1)
  */
 (val showRowNumber: Boolean,
- override val appendBehaviour: AppendBehaviour = AppendBehaviour.Any,
+ override val appendPriority: AppendPriority = AppendPriority.Any,
  rowCount: Int = 4) : Card {
 
 	data class ViewHolder(val cardView: View, val layout: TableLayout) : RecyclerView.ViewHolder(cardView)

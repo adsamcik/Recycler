@@ -1,9 +1,11 @@
-package com.adsamcik.cardlist
+package com.adsamcik.cardlist.card
 
 import android.os.Build
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.adsamcik.cardlist.AppendPriority
+import com.adsamcik.cardlist.ViewHolderCreator
 
 open class CardListAdapter<VH, D>(private val creator: ViewHolderCreator<VH, D>) : RecyclerView.Adapter<VH>() where VH : RecyclerView.ViewHolder, D : Card {
 	private val cardList: MutableList<D> = mutableListOf()
@@ -37,24 +39,24 @@ open class CardListAdapter<VH, D>(private val creator: ViewHolderCreator<VH, D>)
 	}
 
 	/**
-	 * Sorts tableCards based on their [AppendBehaviour].
+	 * Sorts tableCards based on their [AppendPriority].
 	 */
 	fun sort() {
-		cardList.sortBy { it.appendBehaviour.ordinal }
+		cardList.sortBy { it.appendPriority.ordinal }
 		notifyDataSetChanged()
 	}
 
 	/**
-	 * Removed all elements with specific [AppendBehaviour]
-	 * @param appendBehaviour Append behaviour
+	 * Removed all elements with specific [AppendPriority]
+	 * @param appendPriority Append behaviour
 	 */
-	fun remove(appendBehaviour: AppendBehaviour) {
+	fun remove(appendPriority: AppendPriority) {
 		if (Build.VERSION.SDK_INT >= 24)
-			cardList.removeIf { table -> table.appendBehaviour == appendBehaviour }
+			cardList.removeIf { table -> table.appendPriority == appendPriority }
 		else {
 			var i = 0
 			while (i < cardList.size) {
-				if (cardList[i].appendBehaviour == appendBehaviour)
+				if (cardList[i].appendPriority == appendPriority)
 					cardList.removeAt(i--)
 				i++
 			}
