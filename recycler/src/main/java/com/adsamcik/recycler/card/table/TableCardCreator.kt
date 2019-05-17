@@ -13,6 +13,8 @@ import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.annotation.StyleRes
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.cardview.widget.CardView
 import androidx.core.graphics.ColorUtils
 import com.adsamcik.recycler.R
@@ -63,7 +65,7 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 	}
 
 	private fun generateTitleView(context: Context, layout: TableLayout, title: String) {
-		val titleView = TextView(context, null, theme).apply {
+		val titleView = AppCompatTextView(context, null, theme).apply {
 			textSize = 18f
 			setTypeface(null, Typeface.BOLD)
 			gravity = Gravity.CENTER
@@ -98,7 +100,7 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		val dp48px = 48.toPx()
 		val dp16px = 16.toPx()
 
-		return Button(context, null, theme).apply {
+		return AppCompatButton(context, null, theme).apply {
 			//dimensions
 			minWidth = dp48px
 			setPadding(dp16px, 0, dp16px, 0)
@@ -123,18 +125,18 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		val row = TableRow(context)
 
 		if (showNumber) {
-			val rowNum = TextView(context, null, theme)
+			val rowNum = AppCompatTextView(context, null, theme)
 			rowNum.text = String.format(Locale.UK, "%d", index + 1)
 			rowNum.layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.5f)
 			row.addView(rowNum)
 		}
 
-		val textId = TextView(context, null, theme)
+		val textId = AppCompatTextView(context, null, theme)
 		textId.text = rowData.first
 		textId.layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 3f)
 		row.addView(textId)
 
-		val textValue = TextView(context, null, theme)
+		val textValue = AppCompatTextView(context, null, theme)
 		val value = rowData.second
 		try {
 			textValue.text = Util.formatNumber(Integer.parseInt(value))
