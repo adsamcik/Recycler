@@ -6,6 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.adsamcik.recycler.SortableAdapter
 import com.adsamcik.recycler.ViewHolderCreator
 
+/**
+ * @param creator View holder creator
+ * @param VH ViewHolder that implements [RecyclerView.ViewHolder]
+ * @param D
+ */
 open class CardListAdapter<VH : RecyclerView.ViewHolder, D>(private val creator: ViewHolderCreator<VH, D>) : SortableAdapter<D, VH>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {

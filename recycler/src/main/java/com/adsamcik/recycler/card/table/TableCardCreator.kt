@@ -8,7 +8,6 @@ import android.util.Pair
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -31,17 +30,17 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 
 	private var dividerColor = 0
 
-	override fun updateView(context: Context, viewHolder: TableCard.ViewHolder, card: TableCard) {
+	override fun updateView(context: Context, viewHolder: TableCard.ViewHolder, data: TableCard) {
 		val resources = context.resources
 		val padding = resources.getDimension(R.dimen.table_padding).toInt()
 
 		viewHolder.layout.removeAllViews()
 
-		card.title?.let { generateTitleView(context, viewHolder.layout, it) }
+		data.title?.let { generateTitleView(context, viewHolder.layout, it) }
 
-		generateDataRows(context, viewHolder.layout, padding, card)
+		generateDataRows(context, viewHolder.layout, padding, data)
 
-		generateButtonsRow(card.buttons, context, theme, padding)?.also { viewHolder.layout.addView(it) }
+		generateButtonsRow(data.buttons, context, theme, padding)?.also { viewHolder.layout.addView(it) }
 	}
 
 	private fun generateDataRows(context: Context, rootLayout: ViewGroup, padding: Int, card: TableCard) {

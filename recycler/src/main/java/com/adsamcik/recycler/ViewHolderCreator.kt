@@ -5,7 +5,12 @@ import androidx.annotation.StyleRes
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
-interface ViewHolderCreator<VH, D> where VH : RecyclerView.ViewHolder {
+/**
+ * Base class for creation of ViewHolders. Used by [SortableAdapter].
+ * @param VH ViewHolder that implements [RecyclerView.ViewHolder]
+ * @param D Data type
+ */
+interface ViewHolderCreator<VH : RecyclerView.ViewHolder, D> {
 
 	/**
 	 *  Returns int [StyleRes] for theme that should be used
@@ -24,11 +29,11 @@ interface ViewHolderCreator<VH, D> where VH : RecyclerView.ViewHolder {
 	fun createView(parent: CardView, viewType: Int): VH
 
 	/**
-	 * Updates view using [viewHolder] with data from [card]
+	 * Updates view using [viewHolder] with data from [data]
 	 *
 	 * @param context Any context instance
 	 * @param viewHolder View holder for instance that needs to be updated with data
-	 * @param card Data that should be put into the View
+	 * @param data Data that should be put into the View
 	 */
-	fun updateView(context: Context, viewHolder: VH, card: D)
+	fun updateView(context: Context, viewHolder: VH, data: D)
 }
