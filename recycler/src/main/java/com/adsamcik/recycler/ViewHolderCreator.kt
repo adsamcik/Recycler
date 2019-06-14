@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 interface ViewHolderCreator<VH : RecyclerView.ViewHolder, D> {
 
 	/**
-	 *  Returns int [StyleRes] for theme that should be used
+	 *  Returns int [StyleRes] for theme that should be used.
 	 */
 	//StyleRes cannot be added to val or var in interface
 	@StyleRes
@@ -29,7 +29,7 @@ interface ViewHolderCreator<VH : RecyclerView.ViewHolder, D> {
 	fun createView(parent: CardView, viewType: Int): VH
 
 	/**
-	 * Updates view using [viewHolder] with data from [data]
+	 * Updates view using [viewHolder] with data from [data].
 	 *
 	 * @param context Any context instance
 	 * @param viewHolder View holder for instance that needs to be updated with data

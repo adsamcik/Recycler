@@ -28,8 +28,17 @@ open class CardListAdapter<VH : RecyclerView.ViewHolder, D>(private val creator:
 
 
 	companion object {
-		fun <VH : RecyclerView.ViewHolder, D> addTo(recyclerView: RecyclerView, creator: ViewHolderCreator<VH, D>): CardListAdapter<VH, D> {
-			val adapter = CardListAdapter(creator)
+
+		/**
+		 * Adds [CardListAdapter] with [viewHolderCreator] to the [RecyclerView]. Automatically also adds [CardItemDecoration].
+		 *
+		 * @param recyclerView Recycler view to which [CardListAdapter] should be added
+		 * @param viewHolderCreator [ViewHolderCreator] used for creation of [ViewHolder] inside new [CardListAdapter]
+		 *
+		 * @return Newly created adapter, that was added to the [recyclerView]
+		 */
+		fun <ViewHolder : RecyclerView.ViewHolder, Data> addTo(recyclerView: RecyclerView, viewHolderCreator: ViewHolderCreator<ViewHolder, Data>): CardListAdapter<ViewHolder, Data> {
+			val adapter = CardListAdapter(viewHolderCreator)
 			recyclerView.adapter = adapter
 			recyclerView.addItemDecoration(CardItemDecoration())
 			return adapter
