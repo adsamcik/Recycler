@@ -18,24 +18,24 @@ data class AppendPriority(val behavior: AppendBehavior, var priority: Int = 0) {
 	//Kotlin shortcuts
 	companion object {
 		/**
-		 * Shorthand for AppendPriority(AppendBehavior.Any, 0)
+		 * Shorthand for AppendPriority(AppendBehavior.Any, 0).
 		 */
 		val Any: AppendPriority get() = AppendPriority(AppendBehavior.Any, 0)
 
 		/**
-		 * Shorthand for AppendPriority(AppendBehavior.Start, 0)
+		 * Shorthand for AppendPriority(AppendBehavior.Start, 0).
 		 */
 		val Start: AppendPriority get() = AppendPriority(AppendBehavior.Start, 0)
 
 		/**
-		 * Shorthand for AppendPriority(AppendBehavior.End, 0)
+		 * Shorthand for AppendPriority(AppendBehavior.End, 0).
 		 */
 		val End: AppendPriority get() = AppendPriority(AppendBehavior.End, 0)
 	}
 }
 
 /**
- * Enum class representing append behavior
+ * Enum class representing append behavior.
  */
 enum class AppendBehavior {
 	Start,
