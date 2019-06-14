@@ -3,6 +3,7 @@ package com.adsamcik.cardlisttest;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.adsamcik.recycler.AppendBehavior;
 import com.adsamcik.recycler.AppendPriority;
 import com.adsamcik.recycler.SortableAdapter;
 import com.adsamcik.recycler.card.CardListAdapter;
@@ -20,9 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		//buttons do not have background without this
-		//getApplicationContext().setTheme(R.style.AppThemeDark);
-		//setTheme(R.style.AppThemeDark);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
@@ -33,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
 		TableCard first = new TableCard(false, 2);
 		first.addData("hello", "world");
 		first.addData("hi", "world");
-		first.setTitle("Append any");
+		first.setTitle(AppendBehavior.Start.name() + " first");
 
 		TableCard second = new TableCard(true, 2);
 		second.addData("numbered", "world");
 		second.addButton("button", view -> Toast.makeText(this, "Clicked a button", Toast.LENGTH_SHORT).show());
-		second.setTitle("Append first");
+		second.setTitle(AppendBehavior.Start.name() + " second");
 
 
 		TableCard third = new TableCard(false, 2);
@@ -48,18 +46,21 @@ public class MainActivity extends AppCompatActivity {
 
 
 		adapter.add(new SortableAdapter.SortableData<>(third, AppendPriority.Companion.getAny()));
-		adapter.add(new SortableAdapter.SortableData<>(first, AppendPriority.Companion.getAny()));
+		adapter.add(new SortableAdapter.SortableData<>(first, new AppendPriority(AppendBehavior.Start, Integer.MIN_VALUE)));
 		Random random = new Random();
 
 		ArrayList<SortableAdapter.SortableData<TableCard>> tableCards = new ArrayList<>(10);
 		for (int i = 0; i < 10; i++) {
 			TableCard tb = new TableCard(false, 2);
+
+			tb.setTitle(String.valueOf(i));
 			int rn = 3 + random.nextInt(9);
 			for (int y = 0; y < rn; y++) {
-				if (y % 2 == 0)
+				if (y % 2 == 0) {
 					tb.addData("0", "w");
-				else
+				} else {
 					tb.addData("hi", "world");
+				}
 			}
 			tableCards.add(new SortableAdapter.SortableData<>(tb, AppendPriority.Companion.getAny()));
 		}
