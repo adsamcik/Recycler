@@ -1,5 +1,6 @@
 package com.adsamcik.recycler.card.table
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
@@ -24,6 +25,8 @@ import java.util.*
 
 /**
  * Implementation of [ViewHolderCreator] for use with [TableCard]
+ *
+ * @param theme Style resources of theme that should be used
  */
 class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<TableCard.ViewHolder, TableCard> {
 	override fun getTheme() = theme
@@ -111,6 +114,7 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 			this.layoutParams = layoutParams
 
 			//style
+			@SuppressLint("DefaultLocale")
 			text = button.first.toUpperCase()
 			typeface = Typeface.defaultFromStyle(Typeface.BOLD)
 			setOnClickListener(button.second)
