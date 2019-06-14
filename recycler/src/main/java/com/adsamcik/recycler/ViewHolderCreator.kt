@@ -20,7 +20,7 @@ interface ViewHolderCreator<VH : RecyclerView.ViewHolder, D> {
 	fun getTheme(): Int
 
 	/**
-	 * Creates view inside [parent] and maps it to [RecyclerView.ViewHolder] object ([VH])
+	 * Creates view inside [parent] and maps it to [RecyclerView.ViewHolder] object ([VH]).
 	 *
 	 * @param parent Parent of the View
 	 * @param viewType View type

@@ -41,7 +41,7 @@ internal object Util {
 	}
 
 	/**
-	 * Formats 1000 as 1 000
+	 * Formats 1000 as 1 000.
 	 *
 	 * @param number input number
 	 * @return formatted number

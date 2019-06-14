@@ -39,7 +39,7 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerVie
 	}
 
 	/**
-	 * Adds list of [Data] to the adapter
+	 * Adds list of [Data] to the adapter.
 	 *
 	 * @param list List of items to add
 	 */
