@@ -7,6 +7,7 @@ import com.adsamcik.recycler.SortableAdapter.SortableData
 /**
  * [RecyclerView.Adapter] that supports sorting of elements. Uses == operator (equals method) for recognition of duplicates and [SortableData].
  * It is recommended to implemented the [equals] method for type [Data].
+ * Sorting is not guaranteed to be stable and append priority should be used instead of relying on it.
  *
  * @param Data Data type
  * @param VH ViewHolder type
@@ -15,7 +16,6 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerVie
 	//Working with SortableData with specific generic type introduces a lot of mess into the adapter, because it's difficult to get the java class for it
 	//It's better to cast it when needed and ensure that only the right type is added
 	private val dataList: SortedList<SortableData<*>> = SortedList<SortableData<*>>(SortableData::class.java, SortedListCallback())
-
 
 	override fun getItemCount() = dataList.size()
 
