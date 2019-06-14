@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.4.1] - 14-06-2019
+
+- Refactoring (There might be some compatibility issues with named arguments)
+- Updated dependencies
+- Public API (functions, classes, interfaces, objects) should now be properly documented
+
 ## [0.4.0] - 25-04-2019
 
 - Renamed to Recycler library
