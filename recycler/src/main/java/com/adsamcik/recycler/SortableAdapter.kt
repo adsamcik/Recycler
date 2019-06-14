@@ -2,6 +2,7 @@ package com.adsamcik.recycler
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
+import com.adsamcik.recycler.SortableAdapter.SortableData
 
 /**
  * [RecyclerView.Adapter] that supports sorting of elements. Uses == operator (equals method) for recognition of duplicates and [SortableData].
@@ -130,10 +131,11 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerVie
 		}
 
 		override fun compare(o1: SortableData<*>, o2: SortableData<*>): Int {
-			return if (o1.priority.behavior == o2.priority.behavior)
+			return if (o1.priority.behavior == o2.priority.behavior) {
 				o1.priority.priority - o2.priority.priority
-			else
+			} else {
 				o1.priority.behavior.ordinal - o2.priority.behavior.ordinal
+			}
 		}
 
 		override fun areContentsTheSame(oldItem: SortableData<*>, newItem: SortableData<*>): Boolean {

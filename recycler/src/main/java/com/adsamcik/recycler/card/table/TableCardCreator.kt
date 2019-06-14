@@ -34,16 +34,13 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 	private var dividerColor = 0
 
 	override fun updateView(context: Context, viewHolder: TableCard.ViewHolder, data: TableCard) {
-		val resources = context.resources
-		val padding = resources.getDimension(R.dimen.table_padding).toInt()
-
 		viewHolder.layout.removeAllViews()
 
 		data.title?.let { generateTitleView(context, viewHolder.layout, it) }
 
-		generateDataRows(context, viewHolder.layout, padding, data)
+		generateDataRows(context, viewHolder.layout, DEFAULT_PADDING, data)
 
-		generateButtonsRow(data.buttons, context, theme, padding)?.also { viewHolder.layout.addView(it) }
+		generateButtonsRow(data.buttons, context, theme, DEFAULT_PADDING)?.also { viewHolder.layout.addView(it) }
 	}
 
 	private fun generateDataRows(context: Context, rootLayout: ViewGroup, padding: Int, card: TableCard) {
@@ -74,10 +71,8 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 			setLines(1)
 			ellipsize = TextUtils.TruncateAt.END
 
-			val padding = context.resources.getDimension(R.dimen.table_padding).toInt()
-
 			val titleLayoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-			titleLayoutParams.setMargins(padding, 0, padding, 16.toPx())
+			titleLayoutParams.setMargins(DEFAULT_PADDING, 0, DEFAULT_PADDING, 16.toPx())
 			layoutParams = titleLayoutParams
 
 			text = title
@@ -91,26 +86,22 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		val lum = ColorUtils.calculateLuminance(color)
 
 		dividerColor = if (lum > 0.5) {
-			Color.argb(30, 0, 0, 0)
+			ColorUtils.setAlphaComponent(Color.BLACK, TEXT_ALPHA)
 		} else {
-			Color.argb(30, 255, 255, 255)
+			ColorUtils.setAlphaComponent(Color.WHITE, TEXT_ALPHA)
 		}
 	}
 
 	private fun generateButton(context: Context, button: Pair<String, View.OnClickListener>, @StyleRes theme: Int): TextView {
-		//value caching
-		val dp48px = 48.toPx()
-		val dp16px = 16.toPx()
-
 		return AppCompatButton(context, null, theme).apply {
 			//dimensions
-			minWidth = dp48px
-			setPadding(dp16px, 0, dp16px, 0)
-			height = dp48px
+			minWidth = MIN_BUTTON_WIDTH
+			setPadding(DEFAULT_PADDING, 0, DEFAULT_PADDING, 0)
+			height = DEFAULT_HEIGHT
 
 			//layout params
 			val layoutParams = TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-			layoutParams.setMargins(0, dp16px, 0, 0)
+			layoutParams.setMargins(0, DEFAULT_PADDING, 0, 0)
 			this.layoutParams = layoutParams
 
 			//style
@@ -158,7 +149,7 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		if (buttons.isNotEmpty()) {
 			val row = TableRow(context)
 			val lp = TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-			lp.topMargin = 4.toPx()
+			lp.topMargin = BUTTON_TOP_MARGIN
 			lp.setMargins(sideMargin, 0, sideMargin, 0)
 			row.layoutParams = lp
 
@@ -175,11 +166,20 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		val context = parent.context
 
 		val layout = TableLayout(context).apply {
-			setPadding(0, 30, 0, 30)
+			setPadding(0, TABLE_VERTICAL_PADDING, 0, TABLE_VERTICAL_PADDING)
 			parent.addView(this)
 		}
 
 		return TableCard.ViewHolder(parent, layout)
+	}
+
+	companion object {
+		const val TEXT_ALPHA = 30
+		val DEFAULT_PADDING = 16.toPx()
+		val MIN_BUTTON_WIDTH = 48.toPx()
+		val DEFAULT_HEIGHT = 48.toPx()
+		val TABLE_VERTICAL_PADDING = 30.toPx()
+		val BUTTON_TOP_MARGIN = 4.toPx()
 	}
 
 }
