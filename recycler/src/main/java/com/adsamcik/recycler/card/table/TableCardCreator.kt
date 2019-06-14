@@ -24,7 +24,7 @@ import com.adsamcik.recycler.ViewHolderCreator
 import java.util.*
 
 /**
- * Implementation of [ViewHolderCreator] for use with [TableCard]
+ * Implementation of [ViewHolderCreator] for use with [TableCard].
  *
  * @param theme Style resources of theme that should be used
  */
@@ -65,14 +65,14 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 
 	private fun generateTitleView(context: Context, layout: TableLayout, title: String) {
 		val titleView = AppCompatTextView(context, null, theme).apply {
-			textSize = 18f
+			textSize = TITLE_TEXT_SIZE
 			setTypeface(null, Typeface.BOLD)
 			gravity = Gravity.CENTER
 			setLines(1)
 			ellipsize = TextUtils.TruncateAt.END
 
 			val titleLayoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-			titleLayoutParams.setMargins(DEFAULT_PADDING, 0, DEFAULT_PADDING, 16.toPx())
+			titleLayoutParams.setMargins(DEFAULT_PADDING, 0, DEFAULT_PADDING, DEFAULT_PADDING)
 			layoutParams = titleLayoutParams
 
 			text = title
@@ -85,7 +85,7 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		val color = cardView.cardBackgroundColor.defaultColor
 		val lum = ColorUtils.calculateLuminance(color)
 
-		dividerColor = if (lum > 0.5) {
+		dividerColor = if (lum > HALF_LUMINANCE) {
 			ColorUtils.setAlphaComponent(Color.BLACK, TEXT_ALPHA)
 		} else {
 			ColorUtils.setAlphaComponent(Color.WHITE, TEXT_ALPHA)
@@ -109,7 +109,7 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 			text = button.first.toUpperCase()
 			typeface = Typeface.defaultFromStyle(Typeface.BOLD)
 			setOnClickListener(button.second)
-			textSize = 16f
+			textSize = BUTTON_TEXT_SIZE
 			gravity = Gravity.CENTER
 			background = Util.getPressedColorRippleDrawable(0, Util.getAccentColor(context), context.getDrawable(R.drawable.rectangle))
 		}
@@ -153,8 +153,10 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 			lp.setMargins(sideMargin, 0, sideMargin, 0)
 			row.layoutParams = lp
 
-			for (button in buttons)
+			for (button in buttons) {
 				row.addView(generateButton(context, button, theme))
+			}
+
 			return row
 		}
 		return null
@@ -180,6 +182,9 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		val DEFAULT_HEIGHT = 48.toPx()
 		val TABLE_VERTICAL_PADDING = 30.toPx()
 		val BUTTON_TOP_MARGIN = 4.toPx()
+		const val TITLE_TEXT_SIZE = 18f
+		const val BUTTON_TEXT_SIZE = 16f
+		const val HALF_LUMINANCE = 0.5f
 	}
 
 }
