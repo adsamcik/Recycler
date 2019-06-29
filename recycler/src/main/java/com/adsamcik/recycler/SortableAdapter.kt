@@ -12,6 +12,7 @@ import com.adsamcik.recycler.SortableAdapter.SortableData
  * @param Data Data type
  * @param VH ViewHolder type
  */
+@Suppress("unused")
 abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
 	//Working with SortableData with specific generic type introduces a lot of mess into the adapter, because it's difficult to get the java class for it
 	//It's better to cast it when needed and ensure that only the right type is added
@@ -56,7 +57,7 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerVie
 
 	/**
 	 * Removes specific element from adapter
-	 * Uses equals (== operator) internally on [Data]
+	 * Uses equals (== operator) internally on [Data].
 	 *
 	 * @param element [Data] to remove.
 	 */
@@ -65,6 +66,17 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerVie
 		if (index >= 0) {
 			dataList.removeItemAt(index)
 		}
+	}
+
+	/**
+	 * Removes item at index [index].
+	 *
+	 * @param index The index of the item to be removed.
+	 * @return The removed item.
+	 */
+	fun removeAt(index: Int): Data {
+		@Suppress("unchecked_cast")
+		return dataList.removeItemAt(index).data as Data
 	}
 
 	private fun indexOf(element: Data): Int {
