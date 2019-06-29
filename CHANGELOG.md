@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.4.2] - 29-06-2019
+
+- Added removeAt method to SortableAdapter
+
 ## [0.4.1] - 14-06-2019
 
 - Refactoring (There might be some compatibility issues with named arguments)
