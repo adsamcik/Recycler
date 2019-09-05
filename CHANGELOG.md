@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.5.1] - 05-09-2019
+## [0.5.2] - 05-09-2019
 
 - *BREAKING* Replaced CardItemDecoration with much more powerful MarginDecoration
 - *BREAKING* Refactored library structure
