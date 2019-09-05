@@ -12,8 +12,10 @@ open class TableCard
  * @param rowCount   number of data (used to initialize array holding data)
  * @param showRowNumber show number of row (starts at 1)
  */
-(val showRowNumber: Boolean,
- rowCount: Int = 4) {
+(
+		val showRowNumber: Boolean,
+		rowCount: Int = 4
+) {
 
 	/**
 	 * View holder used with data type [TableCard].

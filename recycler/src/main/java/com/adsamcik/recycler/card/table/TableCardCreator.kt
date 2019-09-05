@@ -19,7 +19,7 @@ import androidx.cardview.widget.CardView
 import androidx.core.graphics.ColorUtils
 import com.adsamcik.recycler.R
 import com.adsamcik.recycler.Util
-import com.adsamcik.recycler.Util.toPx
+import com.adsamcik.recycler.Util.dp
 import com.adsamcik.recycler.ViewHolderCreator
 import java.util.*
 
@@ -46,10 +46,10 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 	private fun generateDataRows(context: Context, rootLayout: ViewGroup, padding: Int, card: TableCard) {
 		if (card.data.isEmpty()) return
 
-		val layoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1.toPx())
+		val layoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1.dp)
 		val itemVerticalPadding = context.resources.getDimension(R.dimen.table_item_vertical_padding).toInt()
 
-		for (i in 0 until card.data.size) {
+		for (i in card.data.indices) {
 			if (i > 0) {
 				val divider = View(context)
 				divider.layoutParams = layoutParams
@@ -177,14 +177,13 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 
 	companion object {
 		const val TEXT_ALPHA = 30
-		val DEFAULT_PADDING = 16.toPx()
-		val MIN_BUTTON_WIDTH = 48.toPx()
-		val DEFAULT_HEIGHT = 48.toPx()
-		val TABLE_VERTICAL_PADDING = 30.toPx()
-		val BUTTON_TOP_MARGIN = 4.toPx()
+		val DEFAULT_PADDING = 16.dp
+		val MIN_BUTTON_WIDTH = 48.dp
+		val DEFAULT_HEIGHT = 48.dp
+		val TABLE_VERTICAL_PADDING = 30.dp
+		val BUTTON_TOP_MARGIN = 4.dp
 		const val TITLE_TEXT_SIZE = 18f
 		const val BUTTON_TEXT_SIZE = 16f
 		const val HALF_LUMINANCE = 0.5f
 	}
-
 }

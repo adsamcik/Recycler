@@ -1,8 +1,11 @@
-package com.adsamcik.recycler
+package com.adsamcik.recycler.adapter.implementation
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
-import com.adsamcik.recycler.SortableAdapter.SortableData
+import com.adsamcik.recycler.AppendPriority
+import com.adsamcik.recycler.adapter.abstraction.MutableAdapter
+import com.adsamcik.recycler.adapter.abstraction.ReadableAdapter
+import com.adsamcik.recycler.adapter.implementation.SortableAdapter.SortableData
 
 /**
  * [RecyclerView.Adapter] that supports sorting of elements. Uses == operator (equals method) for recognition of duplicates and [SortableData].
@@ -13,7 +16,8 @@ import com.adsamcik.recycler.SortableAdapter.SortableData
  * @param VH ViewHolder type
  */
 @Suppress("unused")
-abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
+abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder>
+	: RecyclerView.Adapter<VH>(), ReadableAdapter<Data>, MutableAdapter<Data> {
 	//Working with SortableData with specific generic type introduces a lot of mess into the adapter, because it's difficult to get the java class for it
 	//It's better to cast it when needed and ensure that only the right type is added
 	private val dataList: SortedList<SortableData<*>> = SortedList<SortableData<*>>(SortableData::class.java, SortedListCallback())
@@ -39,19 +43,28 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerVie
 		dataList.add(data)
 	}
 
+	override fun add(data: Data) {
+		add(data, AppendPriority.Any)
+	}
+
 	/**
 	 * Adds list of [Data] to the adapter.
 	 *
 	 * @param list List of items to add
 	 */
+	@JvmName("addAllSortable")
 	fun addAll(list: Collection<SortableData<Data>>) {
 		dataList.addAll(list)
+	}
+
+	override fun addAll(collection: Collection<Data>) {
+		addAll(collection.map { SortableData(it) })
 	}
 
 	/**
 	 * Remove all [Data] from adapter
 	 */
-	fun clear() {
+	override fun removeAll() {
 		dataList.clear()
 	}
 
@@ -59,10 +72,10 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerVie
 	 * Removes specific element from adapter
 	 * Uses equals (== operator) internally on [Data].
 	 *
-	 * @param element [Data] to remove.
+	 * @param data [Data] to remove.
 	 */
-	fun remove(element: Data) {
-		val index = indexOf(element)
+	override fun remove(data: Data) {
+		val index = indexOf(data)
 		if (index >= 0) {
 			dataList.removeItemAt(index)
 		}
@@ -74,15 +87,15 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerVie
 	 * @param index The index of the item to be removed.
 	 * @return The removed item.
 	 */
-	fun removeAt(index: Int): Data {
+	override fun removeAt(index: Int): Data {
 		@Suppress("unchecked_cast")
 		return dataList.removeItemAt(index).data as Data
 	}
 
-	private fun indexOf(element: Data): Int {
+	override fun indexOf(data: Data): Int {
 		val size = dataList.size()
 		for (i in 0 until size) {
-			if (dataList[i].data == element) {
+			if (dataList[i].data == data) {
 				return i
 			}
 		}
@@ -97,12 +110,7 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder> : RecyclerVie
 	@Suppress("unchecked_cast")
 	fun getItem(index: Int): Data = dataList[index].data as Data
 
-	/**
-	 * Returns number of [Data] objects added to the adapter.
-	 *
-	 * @return Count of [Data]
-	 */
-	fun size() = dataList.size()
+	override fun get(index: Int): Data = getItem(index)
 
 	/**
 	 * Wrapper data class for [Data] and [AppendPriority]
