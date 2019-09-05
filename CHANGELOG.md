@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.5.0] - 05-09-2019
+
+- *BREAKING* Replaced CardItemDecoration with much more powerful MarginDecoration
+- *BREAKING* Refactored library structure
+- Add interfaces to unify adapter behaviours
+- Add BaseRecyclerAdapter that does basic data manipulation (You still need to implement bind logic)
+- Add MultiTypeAdapter allowing safe use of multiple view types
+- Updated dependencies
+
 ## [0.4.2] - 29-06-2019
 
 - Added removeAt method to SortableAdapter
