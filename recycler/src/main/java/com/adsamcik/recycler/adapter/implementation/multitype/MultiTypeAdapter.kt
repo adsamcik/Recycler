@@ -1,5 +1,9 @@
 package com.adsamcik.recycler.adapter.implementation.multitype
 
+/**
+ * Multi type adapter that builds upon [BaseMultiTypeAdapter] and adds safer method to register types
+ * with enums.
+ */
 open class MultiTypeAdapter<DataTypeEnum : Enum<*>, Data : MultiTypeData<DataTypeEnum>>
 	: BaseMultiTypeAdapter<Data>() {
 
@@ -18,7 +22,7 @@ open class MultiTypeAdapter<DataTypeEnum : Enum<*>, Data : MultiTypeData<DataTyp
 		try {
 			registerType(typeValue.ordinal, creator)
 		} catch (e: AlreadyRegisteredException) {
-			throw AlreadyRegisteredException("Type $typeValue already registered")
+			throw AlreadyRegisteredException("Type $typeValue already registered", e)
 		}
 	}
 }
