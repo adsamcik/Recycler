@@ -11,7 +11,10 @@ import androidx.annotation.ColorInt
 import java.text.DecimalFormat
 
 internal object Util {
-	internal fun Int.toPx() = (this * Resources.getSystem().displayMetrics.density).toInt()
+	/**
+	 * Converts density independent pixels to pixels. Round to whole pixels.
+	 */
+	internal val Int.dp: Int get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
 	/**
 	 * Generate ripple drawable

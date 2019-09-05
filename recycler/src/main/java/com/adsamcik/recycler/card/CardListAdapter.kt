@@ -3,8 +3,9 @@ package com.adsamcik.recycler.card
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.recycler.SortableAdapter
+import com.adsamcik.recycler.adapter.implementation.SortableAdapter
 import com.adsamcik.recycler.ViewHolderCreator
+import com.adsamcik.recycler.decoration.MarginDecoration
 
 /**
  * @param creator View holder creator
@@ -40,7 +41,7 @@ open class CardListAdapter<VH : RecyclerView.ViewHolder, D>(private val creator:
 		fun <ViewHolder : RecyclerView.ViewHolder, Data> addTo(recyclerView: RecyclerView, viewHolderCreator: ViewHolderCreator<ViewHolder, Data>): CardListAdapter<ViewHolder, Data> {
 			val adapter = CardListAdapter(viewHolderCreator)
 			recyclerView.adapter = adapter
-			recyclerView.addItemDecoration(CardItemDecoration())
+			recyclerView.addItemDecoration(MarginDecoration())
 			return adapter
 		}
 	}
