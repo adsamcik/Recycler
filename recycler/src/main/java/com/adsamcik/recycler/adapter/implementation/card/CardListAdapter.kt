@@ -1,10 +1,10 @@
-package com.adsamcik.recycler.card
+package com.adsamcik.recycler.adapter.implementation.card
 
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.recycler.adapter.implementation.SortableAdapter
-import com.adsamcik.recycler.ViewHolderCreator
+import com.adsamcik.recycler.adapter.implementation.sortable.SortableAdapter
+import com.adsamcik.recycler.adapter.implementation.sortable.ViewHolderCreator
 import com.adsamcik.recycler.decoration.MarginDecoration
 
 /**
@@ -31,7 +31,7 @@ open class CardListAdapter<VH : RecyclerView.ViewHolder, D>(private val creator:
 	companion object {
 
 		/**
-		 * Adds [CardListAdapter] with [viewHolderCreator] to the [RecyclerView]. Automatically also adds [CardItemDecoration].
+		 * Adds [CardListAdapter] with [viewHolderCreator] to the [RecyclerView]. Automatically also adds [MarginDecoration].
 		 *
 		 * @param recyclerView Recycler view to which [CardListAdapter] should be added
 		 * @param viewHolderCreator [ViewHolderCreator] used for creation of [ViewHolder] inside new [CardListAdapter]

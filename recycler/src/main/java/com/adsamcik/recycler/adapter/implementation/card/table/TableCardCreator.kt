@@ -1,4 +1,4 @@
-package com.adsamcik.recycler.card.table
+package com.adsamcik.recycler.adapter.implementation.card.table
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -20,7 +20,7 @@ import androidx.core.graphics.ColorUtils
 import com.adsamcik.recycler.R
 import com.adsamcik.recycler.Util
 import com.adsamcik.recycler.Util.dp
-import com.adsamcik.recycler.ViewHolderCreator
+import com.adsamcik.recycler.adapter.implementation.sortable.ViewHolderCreator
 import java.util.*
 
 /**

@@ -1,4 +1,4 @@
-package com.adsamcik.recycler.adapter.implementation
+package com.adsamcik.recycler.adapter.implementation.base
 
 import androidx.annotation.MainThread
 import androidx.recyclerview.widget.RecyclerView

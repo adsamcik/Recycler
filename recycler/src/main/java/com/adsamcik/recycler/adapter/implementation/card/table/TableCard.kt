@@ -1,4 +1,4 @@
-package com.adsamcik.recycler.card.table
+package com.adsamcik.recycler.adapter.implementation.card.table
 
 import android.util.Pair
 import android.view.View

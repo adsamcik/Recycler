@@ -1,11 +1,10 @@
-package com.adsamcik.recycler.adapter.implementation
+package com.adsamcik.recycler.adapter.implementation.sortable
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
-import com.adsamcik.recycler.AppendPriority
 import com.adsamcik.recycler.adapter.abstraction.MutableAdapter
 import com.adsamcik.recycler.adapter.abstraction.ReadableAdapter
-import com.adsamcik.recycler.adapter.implementation.SortableAdapter.SortableData
+import com.adsamcik.recycler.adapter.implementation.sortable.SortableAdapter.SortableData
 
 /**
  * [RecyclerView.Adapter] that supports sorting of elements. Uses == operator (equals method) for recognition of duplicates and [SortableData].
