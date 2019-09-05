@@ -107,9 +107,7 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder>
 	 * @param index Index used in the lookup
 	 */
 	@Suppress("unchecked_cast")
-	fun getItem(index: Int): Data = dataList[index].data as Data
-
-	override fun get(index: Int): Data = getItem(index)
+	override fun getItem(index: Int): Data = dataList[index].data as Data
 
 	/**
 	 * Wrapper data class for [Data] and [AppendPriority]

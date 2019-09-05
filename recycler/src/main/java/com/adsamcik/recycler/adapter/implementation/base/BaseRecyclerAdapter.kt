@@ -49,7 +49,7 @@ abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
 		}
 	}
 
-	override fun get(index: Int): DataType {
+	override fun getItem(index: Int): DataType {
 		return dataList[index]
 	}
 }

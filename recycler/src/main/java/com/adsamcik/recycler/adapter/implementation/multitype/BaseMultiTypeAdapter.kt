@@ -39,12 +39,12 @@ open class BaseMultiTypeAdapter<Data : BaseMultiTypeData> : SortableAdapter<Data
 	}
 
 	/**
-	 * Not registered class exception
+	 * Not registered class exception.
 	 */
 	class NotRegisteredException(message: String) : Exception(message)
 
 	/**
-	 * Already registered class exception
+	 * Already registered class exception.
 	 */
 	class AlreadyRegisteredException : Exception {
 		constructor(message: String?) : super(message)
