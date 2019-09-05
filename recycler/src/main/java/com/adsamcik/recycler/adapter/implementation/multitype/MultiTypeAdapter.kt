@@ -1,7 +1,7 @@
 package com.adsamcik.recycler.adapter.implementation.multitype
 
 /**
- * Multi type adapter that builds upon [BaseMultiTypeAdapter] and adds safer method to register types
+ * Multi type adapter that builds upon [BaseMultiTypeAdapter] and adds safer method to register types.
  * with enums.
  */
 open class MultiTypeAdapter<DataTypeEnum : Enum<*>, Data : MultiTypeData<DataTypeEnum>>
