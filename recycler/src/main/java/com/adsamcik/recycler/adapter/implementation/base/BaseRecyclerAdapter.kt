@@ -4,6 +4,7 @@ import androidx.annotation.MainThread
 import androidx.recyclerview.widget.RecyclerView
 import com.adsamcik.recycler.adapter.abstraction.MutableAdapter
 import com.adsamcik.recycler.adapter.abstraction.ReadableAdapter
+import com.adsamcik.recycler.adapter.abstraction.ReorderableAdapter
 
 /**
  * Base recycler adapter that handles data changes.
@@ -11,7 +12,7 @@ import com.adsamcik.recycler.adapter.abstraction.ReadableAdapter
  */
 @MainThread
 abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
-	: RecyclerView.Adapter<VH>(), ReadableAdapter<DataType>, MutableAdapter<DataType> {
+	: RecyclerView.Adapter<VH>(), ReadableAdapter<DataType>, MutableAdapter<DataType>, ReorderableAdapter {
 	private val dataList = mutableListOf<DataType>()
 
 	override fun getItemCount(): Int = dataList.size
@@ -34,6 +35,20 @@ abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
 	override fun add(data: DataType) {
 		this.dataList.add(data)
 		notifyItemInserted(this.dataList.size - 1)
+	}
+
+	fun add(index: Int, data: DataType) {
+		this.dataList.add(index, data)
+		notifyItemInserted(index)
+	}
+
+	override fun move(from: Int, to: Int) {
+		if (from == to) return
+
+		val tmp = this.dataList.removeAt(from)
+		val toAdjusted = if (from < to) to - 1 else to
+		this.dataList.add(toAdjusted, tmp)
+		notifyItemMoved(from, to)
 	}
 
 	override fun addAll(collection: Collection<DataType>) {
