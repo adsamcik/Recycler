@@ -91,6 +91,12 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder>
 		return dataList.removeItemAt(index).data as Data
 	}
 
+	override fun updateAt(index: Int, value: Data) {
+		val originalItem = dataList[index]
+		val newItem = SortableData(value, originalItem.priority)
+		dataList.updateItemAt(index, newItem)
+	}
+
 	override fun indexOf(data: Data): Int {
 		val size = dataList.size()
 		for (i in 0 until size) {

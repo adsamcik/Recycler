@@ -64,6 +64,11 @@ abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
 		}
 	}
 
+	override fun updateAt(index: Int, value: DataType) {
+		dataList[index] = value
+		notifyItemChanged(index)
+	}
+
 	override fun getItem(index: Int): DataType {
 		return dataList[index]
 	}

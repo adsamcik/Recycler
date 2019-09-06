@@ -16,6 +16,14 @@ interface MutableAdapter<DataType> {
 	fun addAll(collection: Collection<DataType>)
 
 	/**
+	 * Updates element at [index] with [value]
+	 *
+	 * @param index Index of element to update (replace)
+	 * @param value Value to replace element with
+	 */
+	fun updateAt(index: Int, value: DataType)
+
+	/**
 	 * Removed data at [index].
 	 *
 	 *
