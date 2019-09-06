@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.5.3] - 06-09-2019
+
+- Add updateAt to MutableAdapter to allow (and encourage) proper usage of immutable objects
+
 ## [0.5.2] - 05-09-2019
 
 - *BREAKING* Replaced CardItemDecoration with much more powerful MarginDecoration
