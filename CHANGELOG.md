@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.6.0] - 07-09-2019
+## [0.6.1] - 07-09-2019
 
 - Add predicate interfaces
 - *BREAKING* Moved interfaces to new packages

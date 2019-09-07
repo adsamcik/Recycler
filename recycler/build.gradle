@@ -9,7 +9,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.dokka'
 
-ext.version = '0.6.0'
+ext.version = '0.6.1'
 
 android {
     compileSdkVersion 29
@@ -81,7 +81,7 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
-//gradlew bintrayUpload
+// gradlew bintrayUpload
 
 if (file('../local.properties').exists()) {
     apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
