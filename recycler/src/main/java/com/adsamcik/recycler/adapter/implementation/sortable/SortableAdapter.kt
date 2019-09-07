@@ -2,8 +2,8 @@ package com.adsamcik.recycler.adapter.implementation.sortable
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
-import com.adsamcik.recycler.adapter.abstraction.MutableAdapter
-import com.adsamcik.recycler.adapter.abstraction.ReadableAdapter
+import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateMutableAdapter
+import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdapter
 import com.adsamcik.recycler.adapter.implementation.sortable.SortableAdapter.SortableData
 
 /**
@@ -16,7 +16,7 @@ import com.adsamcik.recycler.adapter.implementation.sortable.SortableAdapter.Sor
  */
 @Suppress("unused")
 abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder>
-	: RecyclerView.Adapter<VH>(), ReadableAdapter<Data>, MutableAdapter<Data> {
+	: RecyclerView.Adapter<VH>(), PredicateReadableAdapter<Data>, PredicateMutableAdapter<Data> {
 	//Working with SortableData with specific generic type introduces a lot of mess into the adapter, because it's difficult to get the java class for it
 	//It's better to cast it when needed and ensure that only the right type is added
 	private val dataList: SortedList<SortableData<*>> = SortedList<SortableData<*>>(SortableData::class.java, SortedListCallback())
@@ -60,6 +60,16 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder>
 		addAll(collection.map { SortableData(it) })
 	}
 
+	override fun find(predicate: (Data) -> Boolean): Data? {
+		for (i in 0 until dataList.size()) {
+			val item = getItem(i)
+			if (predicate(item)) {
+				return item
+			}
+		}
+		return null
+	}
+
 	/**
 	 * Remove all [Data] from adapter
 	 */
@@ -73,10 +83,13 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder>
 	 *
 	 * @param data [Data] to remove.
 	 */
-	override fun remove(data: Data) {
+	override fun remove(data: Data): Boolean {
 		val index = indexOf(data)
-		if (index >= 0) {
+		return if (index >= 0) {
 			dataList.removeItemAt(index)
+			true
+		} else {
+			false
 		}
 	}
 
@@ -91,16 +104,59 @@ abstract class SortableAdapter<Data, VH : RecyclerView.ViewHolder>
 		return dataList.removeItemAt(index).data as Data
 	}
 
+	override fun removeIf(predicate: (Data) -> Boolean): Boolean {
+		val index = indexOf(predicate)
+		return if (index >= 0) {
+			removeAt(index)
+			true
+		} else {
+			false
+		}
+	}
+
+	override fun removeAll(predicate: (Data) -> Boolean): Boolean {
+		val removeList = mutableListOf<Int>()
+		for (i in 0 until dataList.size()) {
+			if (predicate(getItem(i))) {
+				removeList.add(i)
+			}
+		}
+
+		for (i in dataList.size() - 1..0) {
+			dataList.removeItemAt(removeList[i])
+		}
+
+		return removeList.isNotEmpty()
+	}
+
 	override fun updateAt(index: Int, value: Data) {
 		val originalItem = dataList[index]
 		val newItem = SortableData(value, originalItem.priority)
 		dataList.updateItemAt(index, newItem)
 	}
 
+	override fun updateIf(predicate: (Data) -> Boolean, value: Data): Boolean {
+		val index = indexOf(predicate)
+		return if (index >= 0) {
+			updateAt(index, value)
+			true
+		} else {
+			false
+		}
+	}
+
 	override fun indexOf(data: Data): Int {
-		val size = dataList.size()
-		for (i in 0 until size) {
+		for (i in 0 until dataList.size()) {
 			if (dataList[i].data == data) {
+				return i
+			}
+		}
+		return -1
+	}
+
+	override fun indexOf(predicate: (Data) -> Boolean): Int {
+		for (i in 0 until dataList.size()) {
+			if (predicate(getItem(i))) {
 				return i
 			}
 		}

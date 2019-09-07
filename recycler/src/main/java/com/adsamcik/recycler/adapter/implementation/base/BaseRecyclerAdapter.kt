@@ -1,10 +1,11 @@
 package com.adsamcik.recycler.adapter.implementation.base
 
+import android.os.Build
 import androidx.annotation.MainThread
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.recycler.adapter.abstraction.MutableAdapter
-import com.adsamcik.recycler.adapter.abstraction.ReadableAdapter
-import com.adsamcik.recycler.adapter.abstraction.ReorderableAdapter
+import com.adsamcik.recycler.adapter.abstraction.base.ReorderableAdapter
+import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateMutableAdapter
+import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdapter
 
 /**
  * Base recycler adapter that handles data changes.
@@ -12,7 +13,9 @@ import com.adsamcik.recycler.adapter.abstraction.ReorderableAdapter
  */
 @MainThread
 abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
-	: RecyclerView.Adapter<VH>(), ReadableAdapter<DataType>, MutableAdapter<DataType>, ReorderableAdapter {
+	: RecyclerView.Adapter<VH>(), PredicateReadableAdapter<DataType>,
+		PredicateMutableAdapter<DataType>, ReorderableAdapter {
+
 	private val dataList = mutableListOf<DataType>()
 
 	override fun getItemCount(): Int = dataList.size
@@ -21,15 +24,49 @@ abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
 		return dataList.indexOf(data)
 	}
 
-	override fun removeAll() {
-		dataList.clear()
-		notifyDataSetChanged()
+	override fun indexOf(predicate: (DataType) -> Boolean): Int {
+		return dataList.indexOfFirst(predicate)
+	}
+
+	override fun remove(data: DataType): Boolean {
+		this.dataList.indexOf(data).let { index ->
+			return if (index >= 0) {
+				this.dataList.removeAt(index)
+				notifyItemRemoved(index)
+				true
+			} else {
+				false
+			}
+		}
 	}
 
 	override fun removeAt(index: Int): DataType {
 		return dataList.removeAt(index).also {
 			notifyItemRemoved(index)
 		}
+	}
+
+	override fun removeIf(predicate: (DataType) -> Boolean): Boolean {
+		return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+			dataList.removeIf(predicate)
+		} else {
+			val index = indexOf(predicate)
+			if (index >= 0) {
+				removeAt(index)
+				true
+			} else {
+				false
+			}
+		}
+	}
+
+	override fun removeAll() {
+		dataList.clear()
+		notifyDataSetChanged()
+	}
+
+	override fun removeAll(predicate: (DataType) -> Boolean): Boolean {
+		return dataList.removeAll(predicate)
 	}
 
 	override fun add(data: DataType) {
@@ -57,19 +94,26 @@ abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
 		notifyItemRangeInserted(lastIndex - collection.size, lastIndex)
 	}
 
-	override fun remove(data: DataType) {
-		this.dataList.indexOf(data).let { index ->
-			this.dataList.removeAt(index)
-			notifyItemRemoved(index)
-		}
-	}
-
 	override fun updateAt(index: Int, value: DataType) {
 		dataList[index] = value
 		notifyItemChanged(index)
 	}
 
+	override fun updateIf(predicate: (DataType) -> Boolean, value: DataType): Boolean {
+		val index = indexOf(predicate)
+		return if (index >= 0) {
+			updateAt(index, value)
+			true
+		} else {
+			false
+		}
+	}
+
 	override fun getItem(index: Int): DataType {
 		return dataList[index]
+	}
+
+	override fun find(predicate: (DataType) -> Boolean): DataType? {
+		return dataList.find(predicate)
 	}
 }

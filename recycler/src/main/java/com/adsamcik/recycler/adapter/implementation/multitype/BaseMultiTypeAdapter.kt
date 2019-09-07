@@ -4,7 +4,7 @@ import android.view.ViewGroup
 import com.adsamcik.recycler.adapter.implementation.sortable.SortableAdapter
 
 /**
- * Base class for multi type adapter
+ * Base class for multi type adapter.
  */
 open class BaseMultiTypeAdapter<Data : BaseMultiTypeData> : SortableAdapter<Data, MultiTypeViewHolder<Data>>() {
 	private val typeMap = mutableMapOf<Int, MultiTypeViewHolderCreator<Data>>()
