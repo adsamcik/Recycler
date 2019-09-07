@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0] - 07-09-2019
+
+- Add predicate interfaces
+- *BREAKING* Moved interfaces to new packages
+- MultiTypeAdapter ViewHolder can now be overridden
+- BaseRecyclerAdapter and SortableAdapter implement new predicate interfaces
+
 ## [0.5.3] - 06-09-2019
 
 - Add updateAt to MutableAdapter to allow (and encourage) proper usage of immutable objects
