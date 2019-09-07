@@ -83,8 +83,7 @@ abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
 		if (from == to) return
 
 		val tmp = this.dataList.removeAt(from)
-		val toAdjusted = if (from < to) to - 1 else to
-		this.dataList.add(toAdjusted, tmp)
+		this.dataList.add(to, tmp)
 		notifyItemMoved(from, to)
 	}
 
