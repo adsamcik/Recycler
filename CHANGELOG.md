@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.7.0] - 08-09-2019
+
+- Add BaseSortAdapter and BaseWrapSortAdapter as base sorting adapters
+- *BREAKING* Rewritten SortableAdapter to use BaseWrapSortAdapter and renamed it to PrioritySortAdapter
+- Changed project style
+
 ## [0.6.1] - 07-09-2019
 
 - Add predicate interfaces
