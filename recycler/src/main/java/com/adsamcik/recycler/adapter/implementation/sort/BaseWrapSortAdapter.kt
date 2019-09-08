@@ -6,7 +6,16 @@ import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateMutableAdapt
 import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdapter
 
 /**
- * Base sort adapter serves as a base for most generic sortable needs
+ * Base sort adapter providing basic sorting functionality with custom wrap objects.
+ * Allows Data sorting using callback.
+ * If raw data is enough for sorting use [BaseSortAdapter] instead.
+ *
+ * @param Data Data type that this adapter will store
+ * @param DataWrap Data type of wrapper that will store [Data] instances
+ * @param VH View holder
+ * @param tClass Class needed to initialize [SortedList], because [Data] is deleted.
+ * @param changeCallback Change callback called when adapter changes
+ * @param sortCallback Required callback that is called during sort
  */
 abstract class BaseWrapSortAdapter<Data, DataWrap : DataWrapper<Data>, VH : RecyclerView.ViewHolder>(
 		tClass: Class<DataWrap>,
@@ -20,8 +29,22 @@ abstract class BaseWrapSortAdapter<Data, DataWrap : DataWrapper<Data>, VH : Recy
 
 	override fun getItemCount() = dataList.size()
 
+	/**
+	 * Create new wrap instance, wrapping [data].
+	 *
+	 * @param data Data to wrap inside [DataWrap]
+	 * @return [DataWrap] containing [data]
+	 */
 	protected abstract fun wrap(data: Data): DataWrap
 
+	/**
+	 * Used to rewrap existing wrapper with new data.
+	 * Creating new instances as a result is recommended.
+	 *
+	 * @param newData New data to wrap inside [DataWrap]
+	 * @param originalWrap Wrapper used for the original data
+	 * @return New [DataWrap] containing containing [newData] and extra data from [originalWrap]
+	 */
 	protected abstract fun rewrap(newData: Data, originalWrap: DataWrap): DataWrap
 
 	override fun add(data: Data) {

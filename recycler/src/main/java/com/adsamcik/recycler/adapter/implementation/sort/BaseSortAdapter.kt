@@ -5,14 +5,26 @@ import androidx.recyclerview.widget.SortedList
 import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateMutableAdapter
 import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdapter
 
+/**
+ * Base sort adapter providing basic sorting functionality.
+ * Allows Data sorting using callback.
+ * If additional data than data provided by the object are needed, use [BaseWrapSortAdapter] instead.
+ *
+ * @param Data Data type that this adapter will store
+ * @param VH View holder
+ * @param tClass Class needed to initialize [SortedList], because [Data] is deleted.
+ * @param changeCallback Change callback called when adapter changes
+ * @param sortCallback Required callback that is called during sort
+ */
 abstract class BaseSortAdapter<Data, VH : RecyclerView.ViewHolder>(
 		tClass: Class<Data>,
 		private val changeCallback: ChangeCallback? = null,
 		private val sortCallback: SortCallback<Data>
 ) : RecyclerView.Adapter<VH>(), PredicateReadableAdapter<Data>, PredicateMutableAdapter<Data> {
 
-	//Working with PriorityWrap with specific generic type introduces a lot of mess into the adapter, because it's difficult to get the java class for it
-	//It's better to cast it when needed and ensure that only the right type is added
+	//Working with PriorityWrap with specific generic type introduces a lot of mess into the adapter,
+	// because it's difficult to get the java class for it
+	// It's better to cast it when needed and ensure that only the right type is added
 	private val dataList: SortedList<Data> = SortedList<Data>(tClass, SortedListCallback())
 
 	override fun getItemCount() = dataList.size()
