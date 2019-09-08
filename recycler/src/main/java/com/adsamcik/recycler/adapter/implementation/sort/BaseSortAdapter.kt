@@ -2,6 +2,8 @@ package com.adsamcik.recycler.adapter.implementation.sort
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
+import com.adsamcik.recycler.adapter.implementation.sort.callback.ChangeCallback
+import com.adsamcik.recycler.adapter.implementation.sort.callback.SortCallback
 import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateMutableAdapter
 import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdapter
 
@@ -16,6 +18,7 @@ import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdap
  * @param changeCallback Change callback called when adapter changes
  * @param sortCallback Required callback that is called during sort
  */
+@Suppress("TooManyFunctions")
 abstract class BaseSortAdapter<Data, VH : RecyclerView.ViewHolder>(
 		tClass: Class<Data>,
 		private val changeCallback: ChangeCallback? = null,
@@ -189,63 +192,5 @@ abstract class BaseSortAdapter<Data, VH : RecyclerView.ViewHolder>(
 		override fun areContentsTheSame(oldItem: Data, newItem: Data): Boolean {
 			return sortCallback.areContentsTheSame(oldItem, newItem)
 		}
-	}
-
-	/**
-	 * Sort callback, provides sorting methods.
-	 */
-	interface SortCallback<Data> {
-		/**
-		 * Compare items [a] and [b] if they are the same or in which way they differ.
-		 *
-		 * @param a Item A to compare with [b]
-		 * @param b Item B to compare with [a]
-		 *
-		 * @return a negative integer, zero, or a positive integer as the first argument is
-		 * less than, equal to, or greater than the second.
-		 */
-		fun compare(a: Data, b: Data): Int
-
-		/**
-		 * Compare if contents of [a] and [b] are the same.
-		 * Two different items can have the same contents.
-		 *
-		 * @return True if contents of [a] and [b] are the same (equal)
-		 */
-		fun areContentsTheSame(a: Data, b: Data): Boolean
-
-		/**
-		 * Compare if items are the same.
-		 * Items can represent the same item and still have different contents.
-		 * Eg. different versions of one item over time (eg. during update)
-		 *
-		 * @return True if [a] and [b] represent the same item.
-		 */
-		fun areItemsTheSame(a: Data, b: Data): Boolean
-	}
-
-	/**
-	 * Change callback. Does not provide data directly.
-	 */
-	interface ChangeCallback {
-		/**
-		 * Called when item moves.
-		 */
-		fun onMoved(fromIndex: Int, toIndex: Int)
-
-		/**
-		 * Called when item/s are inserted.
-		 */
-		fun onInserted(startIndex: Int, count: Int)
-
-		/**
-		 * Called when item/s are removed.
-		 */
-		fun onRemoved(startIndex: Int, count: Int)
-
-		/**
-		 * Called when item/s are changed.
-		 */
-		fun onChanged(startIndex: Int, count: Int)
 	}
 }

@@ -2,6 +2,8 @@ package com.adsamcik.recycler.adapter.implementation.sort
 
 import androidx.recyclerview.widget.RecyclerView
 import com.adsamcik.recycler.adapter.implementation.sort.PrioritySortAdapter.PriorityWrap
+import com.adsamcik.recycler.adapter.implementation.sort.callback.ChangeCallback
+import com.adsamcik.recycler.adapter.implementation.sort.callback.SortCallback
 
 /**
  * [RecyclerView.Adapter] that supports sorting of elements. Uses == operator (equals method) for recognition of duplicates and [PriorityWrap].
@@ -46,7 +48,7 @@ abstract class PrioritySortAdapter<Data : Any, VH : RecyclerView.ViewHolder>(
 	}
 
 	/**
-	 * Wrapper data class for [Data] and [AppendPriority]
+	 * Wrapper data class for [Data] and [AppendPriority].
 	 */
 	data class PriorityWrap<Data : Any>(
 			private val data: Data?,

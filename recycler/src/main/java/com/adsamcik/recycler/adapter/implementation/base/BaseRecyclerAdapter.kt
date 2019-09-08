@@ -76,7 +76,7 @@ abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
 	}
 
 	/**
-	 * Insert item at given index
+	 * Insert item at given index.
 	 *
 	 * @param index Index at which item should be inserted
 	 * @param data Data that will be inserted at given index

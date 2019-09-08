@@ -9,7 +9,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.adsamcik.recycler.Util.dp
 
 /**
- * Implementation of [RecyclerView.ItemDecoration]
+ * Implementation of [RecyclerView.ItemDecoration] providing margins to items.
+ * Supports [GridLayoutManager], [StaggeredGridLayoutManager], [LinearLayoutManager].
+ *
+ * @param verticalMargin Vertical margin between items
+ * @param horizontalMargin Horizontal margin between items
+ * @param firstLineMargin First line margin in orientation of the recycler
+ * @param lastLineMargin Last line margin in orientation of the recycler
  */
 class MarginDecoration(
 		private val verticalMargin: Int = DEFAULT_MARGIN_DP.dp,

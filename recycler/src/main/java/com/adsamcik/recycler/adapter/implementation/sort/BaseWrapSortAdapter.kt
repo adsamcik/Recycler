@@ -2,6 +2,8 @@ package com.adsamcik.recycler.adapter.implementation.sort
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
+import com.adsamcik.recycler.adapter.implementation.sort.callback.ChangeCallback
+import com.adsamcik.recycler.adapter.implementation.sort.callback.SortCallback
 import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateMutableAdapter
 import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdapter
 
@@ -17,6 +19,7 @@ import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdap
  * @param changeCallback Change callback called when adapter changes
  * @param sortCallback Required callback that is called during sort
  */
+@Suppress("TooManyFunctions")
 abstract class BaseWrapSortAdapter<Data, DataWrap : DataWrapper<Data>, VH : RecyclerView.ViewHolder>(
 		tClass: Class<DataWrap>,
 		private val changeCallback: ChangeCallback? = null,
@@ -274,43 +277,5 @@ abstract class BaseWrapSortAdapter<Data, DataWrap : DataWrapper<Data>, VH : Recy
 		override fun areContentsTheSame(oldItem: DataWrap, newItem: DataWrap): Boolean {
 			return sortCallback.areContentsTheSame(oldItem, newItem)
 		}
-	}
-
-	/**
-	 * Sort callback, provides sorting methods.
-	 */
-	interface SortCallback<Data> {
-		/**
-		 * Compare two
-		 */
-		fun compare(a: Data, b: Data): Int
-
-		fun areContentsTheSame(a: Data, b: Data): Boolean
-		fun areItemsTheSame(a: Data, b: Data): Boolean
-	}
-
-	/**
-	 * Change callback. Does not provide data directly.
-	 */
-	interface ChangeCallback {
-		/**
-		 * Called when item moves.
-		 */
-		fun onMoved(fromIndex: Int, toIndex: Int)
-
-		/**
-		 * Called when item/s are inserted.
-		 */
-		fun onInserted(startIndex: Int, count: Int)
-
-		/**
-		 * Called when item/s are removed.
-		 */
-		fun onRemoved(startIndex: Int, count: Int)
-
-		/**
-		 * Called when item/s are changed.
-		 */
-		fun onChanged(startIndex: Int, count: Int)
 	}
 }

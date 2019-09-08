@@ -1,7 +1,7 @@
 package com.adsamcik.recycler.adapter.abstraction.base
 
 /**
- * Reorderable adapter interface
+ * Reorderable adapter interface.
  */
 interface ReorderableAdapter {
 	/**
