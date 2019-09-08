@@ -10,7 +10,7 @@ abstract class MultiTypeViewHolder<Data : BaseMultiTypeData>(rootView: View) : R
 		rootView
 ) {
 	/**
-	 * Binds view holder with data
+	 * Binds view holder with data.
 	 *
 	 * @param data Data the holder is bound with
 	 */

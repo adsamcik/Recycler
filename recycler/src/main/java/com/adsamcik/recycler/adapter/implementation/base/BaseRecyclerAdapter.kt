@@ -12,6 +12,7 @@ import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdap
  * It should reduce boilerplate code for most adapters.
  */
 @MainThread
+@Suppress("TooManyFunctions")
 abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
 	: RecyclerView.Adapter<VH>(), PredicateReadableAdapter<DataType>,
 		PredicateMutableAdapter<DataType>, ReorderableAdapter {
@@ -74,6 +75,12 @@ abstract class BaseRecyclerAdapter<DataType, VH : RecyclerView.ViewHolder>
 		notifyItemInserted(this.dataList.size - 1)
 	}
 
+	/**
+	 * Insert item at given index
+	 *
+	 * @param index Index at which item should be inserted
+	 * @param data Data that will be inserted at given index
+	 */
 	fun add(index: Int, data: DataType) {
 		this.dataList.add(index, data)
 		notifyItemInserted(index)

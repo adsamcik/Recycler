@@ -17,7 +17,7 @@ internal object Util {
 	internal val Int.dp: Int get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
 	/**
-	 * Generate ripple drawable
+	 * Generate ripple drawable.
 	 *
 	 * @param normalColor  if 0, background is transparent
 	 * @param pressedColor pressed color
