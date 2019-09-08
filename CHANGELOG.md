@@ -3,13 +3,13 @@
 ## [0.7.0] - 08-09-2019
 
 - Add BaseSortAdapter and BaseWrapSortAdapter as base sorting adapters
-- *BREAKING* Rewritten SortableAdapter to use BaseWrapSortAdapter and renamed it to PrioritySortAdapter
+- **BREAKING** Rewritten SortableAdapter to use BaseWrapSortAdapter and renamed it to PrioritySortAdapter
 - Changed project style
 
 ## [0.6.1] - 07-09-2019
 
 - Add predicate interfaces
-- *BREAKING* Moved interfaces to new packages
+- **BREAKING** Moved interfaces to new packages
 - MultiTypeAdapter ViewHolder can now be overridden
 - BaseRecyclerAdapter and SortableAdapter implement new predicate interfaces
 
@@ -19,8 +19,8 @@
 
 ## [0.5.2] - 05-09-2019
 
-- *BREAKING* Replaced CardItemDecoration with much more powerful MarginDecoration
-- *BREAKING* Refactored library structure
+- **BREAKING** Replaced CardItemDecoration with much more powerful MarginDecoration
+- **BREAKING** Refactored library structure
 - Add interfaces to unify adapter behaviours
 - Add BaseRecyclerAdapter that does basic data manipulation (You still need to implement bind logic)
 - Add MultiTypeAdapter allowing safe use of multiple view types
