@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
 				"mollis libero tortor non ante. ");
 
 
-		adapter.add(new SortableAdapter.SortableData<>(third, AppendPriority.Companion.getAny()));
-		adapter.add(new SortableAdapter.SortableData<>(first, new AppendPriority(AppendBehavior.Start, Integer.MIN_VALUE)));
+		adapter.add(third, AppendPriority.Companion.getAny());
+		adapter.add(first, new AppendPriority(AppendBehavior.Start, Integer.MIN_VALUE));
 		Random random = new Random();
 
 		ArrayList<SortableAdapter.SortableData<TableCard>> tableCards = new ArrayList<>(10);
@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
 			tableCards.add(new SortableAdapter.SortableData<>(tb, AppendPriority.Companion.getAny()));
 		}
 
-		adapter.addAllSortable(tableCards);
+		adapter.addAllWrap(tableCards);
 
-		adapter.add(new SortableAdapter.SortableData<>(second, AppendPriority.Companion.getStart()));
+		adapter.addWrap(new SortableAdapter.SortableData<>(second, AppendPriority.Companion.getStart()));
 
 		LinearLayoutManager manager = new LinearLayoutManager(this);
 		manager.setOrientation(RecyclerView.VERTICAL);

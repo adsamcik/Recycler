@@ -6,14 +6,15 @@ import com.adsamcik.recycler.adapter.implementation.sort.SortableAdapter
 /**
  * Base class for multi type adapter.
  */
-open class BaseMultiTypeAdapter<Data : BaseMultiTypeData, ViewHolder : MultiTypeViewHolder<Data>> : SortableAdapter<Data, ViewHolder>() {
+open class BaseMultiTypeAdapter<Data : BaseMultiTypeData, ViewHolder : MultiTypeViewHolder<Data>> :
+		SortableAdapter<Data, ViewHolder>() {
 	private val typeMap = mutableMapOf<Int, MultiTypeViewHolderCreator<Data, ViewHolder>>()
 
 	override fun getItemViewType(position: Int): Int = getItem(position).typeValue
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		val type = typeMap[viewType]
-		           ?: throw NotRegisteredException("Type $viewType not registered")
+				?: throw NotRegisteredException("Type $viewType not registered")
 		return type.createViewHolder(parent)
 	}
 

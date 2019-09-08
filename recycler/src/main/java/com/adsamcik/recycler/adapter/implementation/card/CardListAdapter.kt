@@ -12,11 +12,16 @@ import com.adsamcik.recycler.decoration.MarginDecoration
  * @param VH ViewHolder that implements [RecyclerView.ViewHolder]
  * @param D
  */
-open class CardListAdapter<VH : RecyclerView.ViewHolder, D>(private val creator: ViewHolderCreator<VH, D>) : SortableAdapter<D, VH>() {
+open class CardListAdapter<VH : RecyclerView.ViewHolder, D : Any>(
+		private val creator: ViewHolderCreator<VH, D>
+) : SortableAdapter<D, VH>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
 		val cardView = CardView(parent.context, null, creator.getTheme())
-		val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+		val layoutParams = ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT
+		)
 		cardView.layoutParams = layoutParams
 
 		return creator.createView(cardView, viewType)
@@ -26,7 +31,6 @@ open class CardListAdapter<VH : RecyclerView.ViewHolder, D>(private val creator:
 		val item = getItem(position)
 		creator.updateView(holder.itemView.context, holder, item)
 	}
-
 
 	companion object {
 
@@ -38,7 +42,10 @@ open class CardListAdapter<VH : RecyclerView.ViewHolder, D>(private val creator:
 		 *
 		 * @return Newly created adapter, that was added to the [recyclerView]
 		 */
-		fun <ViewHolder : RecyclerView.ViewHolder, Data> addTo(recyclerView: RecyclerView, viewHolderCreator: ViewHolderCreator<ViewHolder, Data>): CardListAdapter<ViewHolder, Data> {
+		fun <ViewHolder : RecyclerView.ViewHolder, Data : Any> addTo(
+				recyclerView: RecyclerView,
+				viewHolderCreator: ViewHolderCreator<ViewHolder, Data>
+		): CardListAdapter<ViewHolder, Data> {
 			val adapter = CardListAdapter(viewHolderCreator)
 			recyclerView.adapter = adapter
 			recyclerView.addItemDecoration(MarginDecoration())

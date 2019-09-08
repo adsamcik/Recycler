@@ -40,14 +40,25 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 
 		generateDataRows(context, viewHolder.layout, DEFAULT_PADDING, data)
 
-		generateButtonsRow(data.buttons, context, theme, DEFAULT_PADDING)?.also { viewHolder.layout.addView(it) }
+		generateButtonsRow(
+				data.buttons,
+				context,
+				theme,
+				DEFAULT_PADDING
+		)?.also { viewHolder.layout.addView(it) }
 	}
 
-	private fun generateDataRows(context: Context, rootLayout: ViewGroup, padding: Int, card: TableCard) {
+	private fun generateDataRows(
+			context: Context,
+			rootLayout: ViewGroup,
+			padding: Int,
+			card: TableCard
+	) {
 		if (card.data.isEmpty()) return
 
 		val layoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1.dp)
-		val itemVerticalPadding = context.resources.getDimension(R.dimen.table_item_vertical_padding).toInt()
+		val itemVerticalPadding = context.resources.getDimension(R.dimen.table_item_vertical_padding)
+				.toInt()
 
 		for (i in card.data.indices) {
 			if (i > 0) {
@@ -71,7 +82,10 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 			setLines(1)
 			ellipsize = TextUtils.TruncateAt.END
 
-			val titleLayoutParams = TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+			val titleLayoutParams = TableLayout.LayoutParams(
+					ViewGroup.LayoutParams.WRAP_CONTENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT
+			)
 			titleLayoutParams.setMargins(DEFAULT_PADDING, 0, DEFAULT_PADDING, DEFAULT_PADDING)
 			layoutParams = titleLayoutParams
 
@@ -92,7 +106,10 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		}
 	}
 
-	private fun generateButton(context: Context, button: Pair<String, View.OnClickListener>, @StyleRes theme: Int): TextView {
+	private fun generateButton(
+			context: Context,
+			button: Pair<String, View.OnClickListener>, @StyleRes theme: Int
+	): TextView {
 		return AppCompatButton(context, null, theme).apply {
 			//dimensions
 			minWidth = MIN_BUTTON_WIDTH
@@ -100,7 +117,10 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 			height = DEFAULT_HEIGHT
 
 			//layout params
-			val layoutParams = TableRow.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+			val layoutParams = TableRow.LayoutParams(
+					ViewGroup.LayoutParams.WRAP_CONTENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT
+			)
 			layoutParams.setMargins(0, DEFAULT_PADDING, 0, 0)
 			this.layoutParams = layoutParams
 
@@ -111,11 +131,20 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 			setOnClickListener(button.second)
 			textSize = BUTTON_TEXT_SIZE
 			gravity = Gravity.CENTER
-			background = Util.getPressedColorRippleDrawable(0, Util.getAccentColor(context), context.getDrawable(R.drawable.rectangle))
+			background = Util.getPressedColorRippleDrawable(
+					0,
+					Util.getAccentColor(context),
+					context.getDrawable(R.drawable.rectangle)
+			)
 		}
 	}
 
-	private fun generateDataRow(context: Context, showNumber: Boolean, rowData: Pair<String, String>, index: Int, @StyleRes theme: Int): TableRow {
+	private fun generateDataRow(
+			context: Context,
+			showNumber: Boolean,
+			rowData: Pair<String, String>,
+			index: Int, @StyleRes theme: Int
+	): TableRow {
 		val row = TableRow(context)
 
 		if (showNumber) {
@@ -145,10 +174,17 @@ class TableCardCreator(@StyleRes private val theme: Int) : ViewHolderCreator<Tab
 		return row
 	}
 
-	private fun generateButtonsRow(buttons: List<Pair<String, View.OnClickListener>>, context: Context, @StyleRes theme: Int, sideMargin: Int): TableRow? {
+	private fun generateButtonsRow(
+			buttons: List<Pair<String, View.OnClickListener>>,
+			context: Context, @StyleRes theme: Int,
+			sideMargin: Int
+	): TableRow? {
 		if (buttons.isNotEmpty()) {
 			val row = TableRow(context)
-			val lp = TableLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+			val lp = TableLayout.LayoutParams(
+					ViewGroup.LayoutParams.WRAP_CONTENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT
+			)
 			lp.topMargin = BUTTON_TOP_MARGIN
 			lp.setMargins(sideMargin, 0, sideMargin, 0)
 			row.layoutParams = lp

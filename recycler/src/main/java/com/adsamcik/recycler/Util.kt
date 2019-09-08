@@ -23,12 +23,21 @@ internal object Util {
 	 * @param pressedColor pressed color
 	 * @return RippleDrawable
 	 */
-	internal fun getPressedColorRippleDrawable(normalColor: Int, pressedColor: Int, mask: Drawable?): RippleDrawable {
-		return RippleDrawable(getPressedColorSelector(pressedColor), if (normalColor == 0) null else getColorDrawableFromColor(normalColor), mask)
+	internal fun getPressedColorRippleDrawable(
+			normalColor: Int,
+			pressedColor: Int,
+			mask: Drawable?
+	): RippleDrawable {
+		return RippleDrawable(
+				getPressedColorSelector(pressedColor),
+				if (normalColor == 0) null else getColorDrawableFromColor(normalColor),
+				mask
+		)
 	}
 
 	private fun getPressedColorSelector(pressedColor: Int): ColorStateList {
-		return ColorStateList(arrayOf(intArrayOf()), intArrayOf(pressedColor)
+		return ColorStateList(
+				arrayOf(intArrayOf()), intArrayOf(pressedColor)
 		)
 	}
 

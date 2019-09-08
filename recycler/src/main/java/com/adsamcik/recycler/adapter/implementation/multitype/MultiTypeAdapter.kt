@@ -18,7 +18,10 @@ open class MultiTypeAdapter<DataTypeEnum : Enum<*>, Data : MultiTypeData<DataTyp
 	 * @throws AlreadyRegisteredException Thrown when type was previously registered
 	 */
 	@Throws(AlreadyRegisteredException::class)
-	fun registerType(typeValue: DataTypeEnum, creator: MultiTypeViewHolderCreator<Data, ViewHolder>) {
+	fun registerType(
+			typeValue: DataTypeEnum,
+			creator: MultiTypeViewHolderCreator<Data, ViewHolder>
+	) {
 		try {
 			registerType(typeValue.ordinal, creator)
 		} catch (e: AlreadyRegisteredException) {

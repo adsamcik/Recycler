@@ -20,7 +20,9 @@ open class TableCard
 	/**
 	 * View holder used with data type [TableCard].
 	 */
-	data class ViewHolder(val cardView: View, val layout: TableLayout) : RecyclerView.ViewHolder(cardView)
+	data class ViewHolder(val cardView: View, val layout: TableLayout) : RecyclerView.ViewHolder(
+			cardView
+	)
 
 	/**
 	 * Table title.
