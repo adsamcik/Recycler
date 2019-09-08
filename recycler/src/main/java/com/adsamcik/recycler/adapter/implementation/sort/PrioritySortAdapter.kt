@@ -2,7 +2,6 @@ package com.adsamcik.recycler.adapter.implementation.sort
 
 import androidx.recyclerview.widget.RecyclerView
 import com.adsamcik.recycler.adapter.implementation.sort.PrioritySortAdapter.PriorityWrap
-import com.adsamcik.recycler.adapter.implementation.sort.callback.ChangeCallback
 import com.adsamcik.recycler.adapter.implementation.sort.callback.SortCallback
 
 /**
@@ -14,13 +13,13 @@ import com.adsamcik.recycler.adapter.implementation.sort.callback.SortCallback
  * @param VH ViewHolder type
  */
 @Suppress("unused")
-abstract class PrioritySortAdapter<Data : Any, VH : RecyclerView.ViewHolder>(
-		changeCallback: ChangeCallback? = null
-) : BaseWrapSortAdapter<Data, PriorityWrap<Data>, VH>(
-		PriorityWrap<Data>(null).javaClass,
-		changeCallback,
-		SortedListCallback<Data>()
+abstract class PrioritySortAdapter<Data : Any, VH : RecyclerView.ViewHolder>
+	: BaseWrapSortAdapter<Data, PriorityWrap<Data>, VH>(
+		PriorityWrap<Data>(null, AppendPriority.Any).javaClass
 ) {
+
+	override val sortCallback: SortCallback<PriorityWrap<Data>> = SortedListCallback()
+
 	/**
 	 * Add [Data] to the adapter
 	 *
@@ -50,12 +49,21 @@ abstract class PrioritySortAdapter<Data : Any, VH : RecyclerView.ViewHolder>(
 	/**
 	 * Wrapper data class for [Data] and [AppendPriority].
 	 */
-	data class PriorityWrap<Data : Any>(
+	data class PriorityWrap<Data : Any> internal constructor(
 			private val data: Data?,
-			val priority: AppendPriority = AppendPriority.Any
+			val priority: AppendPriority
 	) : DataWrapper<Data> {
 		override val rawData: Data
 			get() = requireNotNull(data)
+
+		companion object {
+			fun <Data : Any> create(
+					data: Data,
+					priority: AppendPriority = AppendPriority.Any
+			): PriorityWrap<Data> {
+				return PriorityWrap(data, priority)
+			}
+		}
 	}
 
 	private class SortedListCallback<Data : Any> : SortCallback<PriorityWrap<Data>> {

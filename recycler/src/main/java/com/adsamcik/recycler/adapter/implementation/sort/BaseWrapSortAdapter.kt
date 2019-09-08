@@ -2,10 +2,10 @@ package com.adsamcik.recycler.adapter.implementation.sort
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SortedList
-import com.adsamcik.recycler.adapter.implementation.sort.callback.ChangeCallback
-import com.adsamcik.recycler.adapter.implementation.sort.callback.SortCallback
 import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateMutableAdapter
 import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdapter
+import com.adsamcik.recycler.adapter.implementation.sort.callback.ChangeCallback
+import com.adsamcik.recycler.adapter.implementation.sort.callback.SortCallback
 
 /**
  * Base sort adapter providing basic sorting functionality with custom wrap objects.
@@ -16,19 +16,25 @@ import com.adsamcik.recycler.adapter.abstraction.predicate.PredicateReadableAdap
  * @param DataWrap Data type of wrapper that will store [Data] instances
  * @param VH View holder
  * @param tClass Class needed to initialize [SortedList], because [Data] is deleted.
- * @param changeCallback Change callback called when adapter changes
- * @param sortCallback Required callback that is called during sort
  */
 @Suppress("TooManyFunctions")
 abstract class BaseWrapSortAdapter<Data, DataWrap : DataWrapper<Data>, VH : RecyclerView.ViewHolder>(
-		tClass: Class<DataWrap>,
-		private val changeCallback: ChangeCallback? = null,
-		private val sortCallback: SortCallback<DataWrap>
+		tClass: Class<DataWrap>
 ) : RecyclerView.Adapter<VH>(), PredicateReadableAdapter<Data>, PredicateMutableAdapter<Data> {
 
 	//Working with PriorityWrap with specific generic type introduces a lot of mess into the adapter, because it's difficult to get the java class for it
 	//It's better to cast it when needed and ensure that only the right type is added
 	private val dataList: SortedList<DataWrap> = SortedList<DataWrap>(tClass, SortedListCallback())
+
+	/**
+	 * Called when data changes
+	 */
+	protected val changeCallback: ChangeCallback? = null
+
+	/**
+	 * Provides sorting methods
+	 */
+	protected abstract val sortCallback: SortCallback<DataWrap>
 
 	override fun getItemCount() = dataList.size()
 

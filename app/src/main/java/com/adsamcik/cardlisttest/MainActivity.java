@@ -69,12 +69,13 @@ public class MainActivity extends AppCompatActivity {
 					tb.addData("hi", "world");
 				}
 			}
-			tableCards.add(new PrioritySortAdapter.PriorityWrap<>(tb, AppendPriority.Companion.getAny()));
+
+			tableCards.add(PrioritySortAdapter.PriorityWrap.Companion.create(tb, AppendPriority.Companion.getAny()));
 		}
 
 		adapter.addAllWrap(tableCards);
 
-		adapter.addWrap(new PrioritySortAdapter.PriorityWrap<>(second, AppendPriority.Companion.getStart()));
+		adapter.addWrap(PrioritySortAdapter.PriorityWrap.Companion.create(second, AppendPriority.Companion.getStart()));
 
 		LinearLayoutManager manager = new LinearLayoutManager(this);
 		manager.setOrientation(RecyclerView.VERTICAL);
