@@ -3,7 +3,7 @@ package com.adsamcik.recycler.adapter.implementation.card
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.recycler.adapter.implementation.sort.SortableAdapter
+import com.adsamcik.recycler.adapter.implementation.sort.PrioritySortAdapter
 import com.adsamcik.recycler.adapter.implementation.sort.ViewHolderCreator
 import com.adsamcik.recycler.decoration.MarginDecoration
 
@@ -14,7 +14,7 @@ import com.adsamcik.recycler.decoration.MarginDecoration
  */
 open class CardListAdapter<VH : RecyclerView.ViewHolder, D : Any>(
 		private val creator: ViewHolderCreator<VH, D>
-) : SortableAdapter<D, VH>() {
+) : PrioritySortAdapter<D, VH>() {
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
 		val cardView = CardView(parent.context, null, creator.getTheme())

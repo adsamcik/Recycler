@@ -6,7 +6,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * Base class for creation of ViewHolders. Used by [SortableAdapter].
+ * Base class for creation of ViewHolders. Used by [PrioritySortAdapter].
  * @param VH ViewHolder that implements [RecyclerView.ViewHolder]
  * @param D Data type
  */

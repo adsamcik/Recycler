@@ -1,13 +1,13 @@
 package com.adsamcik.recycler.adapter.implementation.multitype
 
 import android.view.ViewGroup
-import com.adsamcik.recycler.adapter.implementation.sort.SortableAdapter
+import com.adsamcik.recycler.adapter.implementation.sort.PrioritySortAdapter
 
 /**
  * Base class for multi type adapter.
  */
 open class BaseMultiTypeAdapter<Data : BaseMultiTypeData, ViewHolder : MultiTypeViewHolder<Data>> :
-		SortableAdapter<Data, ViewHolder>() {
+		PrioritySortAdapter<Data, ViewHolder>() {
 	private val typeMap = mutableMapOf<Int, MultiTypeViewHolderCreator<Data, ViewHolder>>()
 
 	override fun getItemViewType(position: Int): Int = getItem(position).typeValue

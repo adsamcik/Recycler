@@ -5,7 +5,7 @@ import android.widget.Toast;
 
 import com.adsamcik.recycler.adapter.implementation.sort.AppendBehavior;
 import com.adsamcik.recycler.adapter.implementation.sort.AppendPriority;
-import com.adsamcik.recycler.adapter.implementation.sort.SortableAdapter;
+import com.adsamcik.recycler.adapter.implementation.sort.PrioritySortAdapter;
 import com.adsamcik.recycler.adapter.implementation.card.CardListAdapter;
 import com.adsamcik.recycler.adapter.implementation.card.table.TableCard;
 import com.adsamcik.recycler.adapter.implementation.card.table.TableCardCreator;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 		adapter.add(first, new AppendPriority(AppendBehavior.Start, Integer.MIN_VALUE));
 		Random random = new Random();
 
-		ArrayList<SortableAdapter.SortableData<TableCard>> tableCards = new ArrayList<>(10);
+		ArrayList<PrioritySortAdapter.PriorityWrap<TableCard>> tableCards = new ArrayList<>(10);
 		for (int i = 0; i < 10; i++) {
 			TableCard tb = new TableCard(false, 2);
 
@@ -69,12 +69,12 @@ public class MainActivity extends AppCompatActivity {
 					tb.addData("hi", "world");
 				}
 			}
-			tableCards.add(new SortableAdapter.SortableData<>(tb, AppendPriority.Companion.getAny()));
+			tableCards.add(new PrioritySortAdapter.PriorityWrap<>(tb, AppendPriority.Companion.getAny()));
 		}
 
 		adapter.addAllWrap(tableCards);
 
-		adapter.addWrap(new SortableAdapter.SortableData<>(second, AppendPriority.Companion.getStart()));
+		adapter.addWrap(new PrioritySortAdapter.PriorityWrap<>(second, AppendPriority.Companion.getStart()));
 
 		LinearLayoutManager manager = new LinearLayoutManager(this);
 		manager.setOrientation(RecyclerView.VERTICAL);

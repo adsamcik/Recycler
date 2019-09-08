@@ -14,7 +14,7 @@ abstract class BaseWrapSortAdapter<Data, DataWrap : DataWrapper<Data>, VH : Recy
 		private val sortCallback: SortCallback<DataWrap>
 ) : RecyclerView.Adapter<VH>(), PredicateReadableAdapter<Data>, PredicateMutableAdapter<Data> {
 
-	//Working with SortableData with specific generic type introduces a lot of mess into the adapter, because it's difficult to get the java class for it
+	//Working with PriorityWrap with specific generic type introduces a lot of mess into the adapter, because it's difficult to get the java class for it
 	//It's better to cast it when needed and ensure that only the right type is added
 	private val dataList: SortedList<DataWrap> = SortedList<DataWrap>(tClass, SortedListCallback())
 

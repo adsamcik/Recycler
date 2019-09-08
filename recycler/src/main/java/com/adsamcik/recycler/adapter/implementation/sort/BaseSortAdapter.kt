@@ -11,7 +11,7 @@ abstract class BaseSortAdapter<Data, VH : RecyclerView.ViewHolder>(
 		private val sortCallback: SortCallback<Data>
 ) : RecyclerView.Adapter<VH>(), PredicateReadableAdapter<Data>, PredicateMutableAdapter<Data> {
 
-	//Working with SortableData with specific generic type introduces a lot of mess into the adapter, because it's difficult to get the java class for it
+	//Working with PriorityWrap with specific generic type introduces a lot of mess into the adapter, because it's difficult to get the java class for it
 	//It's better to cast it when needed and ensure that only the right type is added
 	private val dataList: SortedList<Data> = SortedList<Data>(tClass, SortedListCallback())
 
