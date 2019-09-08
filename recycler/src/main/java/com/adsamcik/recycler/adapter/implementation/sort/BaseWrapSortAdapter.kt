@@ -29,7 +29,7 @@ abstract class BaseWrapSortAdapter<Data, DataWrap : DataWrapper<Data>, VH : Recy
 	/**
 	 * Called when data changes
 	 */
-	protected val changeCallback: ChangeCallback? = null
+	protected open val changeCallback: ChangeCallback? = null
 
 	/**
 	 * Provides sorting methods
