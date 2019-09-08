@@ -1,4 +1,4 @@
-package com.adsamcik.recycler.adapter.implementation.sortable
+package com.adsamcik.recycler.adapter.implementation.sort
 
 import android.content.Context
 import androidx.annotation.StyleRes

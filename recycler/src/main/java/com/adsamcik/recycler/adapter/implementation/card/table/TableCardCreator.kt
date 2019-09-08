@@ -20,7 +20,7 @@ import androidx.core.graphics.ColorUtils
 import com.adsamcik.recycler.R
 import com.adsamcik.recycler.Util
 import com.adsamcik.recycler.Util.dp
-import com.adsamcik.recycler.adapter.implementation.sortable.ViewHolderCreator
+import com.adsamcik.recycler.adapter.implementation.sort.ViewHolderCreator
 import java.util.*
 
 /**

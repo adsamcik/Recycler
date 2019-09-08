@@ -3,9 +3,9 @@ package com.adsamcik.cardlisttest;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.adsamcik.recycler.adapter.implementation.sortable.AppendBehavior;
-import com.adsamcik.recycler.adapter.implementation.sortable.AppendPriority;
-import com.adsamcik.recycler.adapter.implementation.sortable.SortableAdapter;
+import com.adsamcik.recycler.adapter.implementation.sort.AppendBehavior;
+import com.adsamcik.recycler.adapter.implementation.sort.AppendPriority;
+import com.adsamcik.recycler.adapter.implementation.sort.SortableAdapter;
 import com.adsamcik.recycler.adapter.implementation.card.CardListAdapter;
 import com.adsamcik.recycler.adapter.implementation.card.table.TableCard;
 import com.adsamcik.recycler.adapter.implementation.card.table.TableCardCreator;

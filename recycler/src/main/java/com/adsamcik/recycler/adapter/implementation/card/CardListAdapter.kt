@@ -3,8 +3,8 @@ package com.adsamcik.recycler.adapter.implementation.card
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.adsamcik.recycler.adapter.implementation.sortable.SortableAdapter
-import com.adsamcik.recycler.adapter.implementation.sortable.ViewHolderCreator
+import com.adsamcik.recycler.adapter.implementation.sort.SortableAdapter
+import com.adsamcik.recycler.adapter.implementation.sort.ViewHolderCreator
 import com.adsamcik.recycler.decoration.MarginDecoration
 
 /**

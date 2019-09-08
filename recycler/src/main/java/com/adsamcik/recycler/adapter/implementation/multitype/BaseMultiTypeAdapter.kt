@@ -1,7 +1,7 @@
 package com.adsamcik.recycler.adapter.implementation.multitype
 
 import android.view.ViewGroup
-import com.adsamcik.recycler.adapter.implementation.sortable.SortableAdapter
+import com.adsamcik.recycler.adapter.implementation.sort.SortableAdapter
 
 /**
  * Base class for multi type adapter.
