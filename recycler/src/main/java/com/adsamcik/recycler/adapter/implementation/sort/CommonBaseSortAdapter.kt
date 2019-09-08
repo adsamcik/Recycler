@@ -13,19 +13,18 @@ abstract class CommonBaseSortAdapter<Data : Any, DataWrap : Any, ViewHolder : Re
 		RecyclerView.Adapter<ViewHolder>(),
 		PredicateMutableAdapter<Data>,
 		PredicateReadableAdapter<Data> {
-	//Working with PriorityWrap with specific generic type introduces a lot of mess into the adapter,
-	// because it's difficult to get the java class for it
-	// It's better to cast it when needed and ensure that only the right type is added
-	protected val dataList: SortedList<DataWrap> =
-			SortedList<DataWrap>(dataClass, SortedListCallback())
+	protected val dataList: SortedList<DataWrap> = SortedList<DataWrap>(
+			dataClass,
+			SortedListCallback()
+	)
 
 	/**
-	 * Called when data changes
+	 * Called when data changes.
 	 */
 	protected open val changeCallback: ChangeCallback? = null
 
 	/**
-	 * Provides sorting methods
+	 * Provides sorting methods.
 	 */
 	protected abstract val sortCallback: SortCallback<DataWrap>
 
