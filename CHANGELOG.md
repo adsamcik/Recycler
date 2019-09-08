@@ -1,11 +1,11 @@
 # Changelog
 
-## [0.5.2] - [0.7.1]
+## [0.5.2] - [0.7.2]
 
 Note: These updates were part of rapid development in par with an application, this caused several issues with some version, but allowed for much faster development.
 This brings the library close to 1.0 release after which every new release will be require testing before it's released.
 
-## [0.7.1] - 08-09-2019
+## [0.7.2] - 08-09-2019
 
 - *BREAKING* Fixed oversight which made it significantly harder to implement callbacks inside adapter. Moved callbacks out of constructor.
 - *BREAKING* PriorityWrap is now initialized using Companion method create to disallow creation of null values, which is used only during initialization to get class of the generic instance.
