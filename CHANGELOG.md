@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.7.3]
+
+- Fixed addAll referencing itself instead of underlying storage causing stack overflow.
+
 ## [0.5.2] - [0.7.2]
 
 Note: These updates were part of rapid development in par with an application, this caused several issues with some version, but allowed for much faster development.
