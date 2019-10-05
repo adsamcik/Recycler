@@ -24,7 +24,7 @@ abstract class BaseSortAdapter<Data : Any, VH : RecyclerView.ViewHolder>(
 	}
 
 	override fun addAll(collection: Collection<Data>) {
-		addAll(collection)
+		dataList.addAll(collection)
 	}
 
 	override fun find(predicate: (Data) -> Boolean): Data? {
