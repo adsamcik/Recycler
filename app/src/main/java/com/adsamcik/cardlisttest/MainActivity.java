@@ -3,17 +3,18 @@ package com.adsamcik.cardlisttest;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.adsamcik.recycler.adapter.implementation.sort.AppendBehavior;
-import com.adsamcik.recycler.adapter.implementation.sort.AppendPriority;
-import com.adsamcik.recycler.adapter.implementation.sort.PrioritySortAdapter;
 import com.adsamcik.recycler.adapter.implementation.card.CardListAdapter;
 import com.adsamcik.recycler.adapter.implementation.card.table.TableCard;
 import com.adsamcik.recycler.adapter.implementation.card.table.TableCardCreator;
+import com.adsamcik.recycler.adapter.implementation.sort.AppendBehavior;
+import com.adsamcik.recycler.adapter.implementation.sort.AppendPriority;
+import com.adsamcik.recycler.adapter.implementation.sort.PrioritySortAdapter;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 		TableCard third = new TableCard(false, 2);
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 10; i++) {
 			third.addData("data " + i, Integer.toString(i));
+		}
 		third.setTitle("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod " +
 				"ipsum vel fermentum vulputate. Nulla ultrices quam ut dolor bibendum semper. Quisque " +
 				"placerat cursus ipsum, sit amet rutrum diam porta sed. Aenean arcu est, scelerisque " +
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
 		adapter.addWrap(PrioritySortAdapter.PriorityWrap.Companion.create(second, AppendPriority.Companion.getStart()));
 
-		LinearLayoutManager manager = new LinearLayoutManager(this);
+		LinearLayoutManager manager = new GridLayoutManager(this, 2);
 		manager.setOrientation(RecyclerView.VERTICAL);
 		recyclerView.setLayoutManager(manager);
 	}
