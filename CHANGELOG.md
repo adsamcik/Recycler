@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.7.3] - 20-10-2019
+## [0.7.4] - 20-10-2019
 
 - Fixed issue where incorrect calculation of last row indexes caused double padding
 
