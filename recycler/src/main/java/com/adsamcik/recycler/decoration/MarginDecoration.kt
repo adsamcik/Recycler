@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.adsamcik.recycler.Util.dp
+import kotlin.math.ceil
 
 /**
  * Implementation of [RecyclerView.ItemDecoration] providing margins to items.
@@ -18,11 +19,18 @@ import com.adsamcik.recycler.Util.dp
  * @param lastLineMargin Last line margin in orientation of the recycler
  */
 class MarginDecoration(
-		private val verticalMargin: Int = DEFAULT_MARGIN_DP.dp,
-		private val horizontalMargin: Int = DEFAULT_MARGIN_DP.dp,
-		private val firstLineMargin: Int = DEFAULT_MARGIN_DP.dp,
-		private val lastLineMargin: Int = DEFAULT_MARGIN_DP.dp
+		private val verticalMargin: Int = DEFAULT_MARGIN.dp,
+		private val horizontalMargin: Int = DEFAULT_MARGIN.dp,
+		private val firstLineMargin: Int = DEFAULT_MARGIN.dp,
+		private val lastLineMargin: Int = DEFAULT_MARGIN.dp
 ) : RecyclerView.ItemDecoration() {
+
+	private fun getMaxItemsForGrid(itemCount: Int, columnCount: Int): Int {
+		val columnCountFloat = columnCount.toFloat()
+		// This needs to use ceil in order to correctly handle case when column is full and when it is not
+		return (ceil(itemCount.toFloat() / columnCountFloat) * columnCountFloat).toInt()
+	}
+
 	private fun setOffsetsHorizontal(
 			outRect: Rect,
 			parent: RecyclerView,
@@ -37,7 +45,8 @@ class MarginDecoration(
 			}
 
 			val itemCount = parent.adapter?.itemCount ?: 0
-			if (position >= itemCount - columnCount) right = lastLineMargin
+			val maxGridItems = getMaxItemsForGrid(itemCount, columnCount)
+			if (position >= maxGridItems - columnCount) right = lastLineMargin
 
 			top = verticalMargin
 			bottom = verticalMargin
@@ -58,7 +67,8 @@ class MarginDecoration(
 			}
 
 			val itemCount = parent.adapter?.itemCount ?: 0
-			if (position >= itemCount - columnCount) bottom = lastLineMargin
+			val maxGridItems = getMaxItemsForGrid(itemCount, columnCount)
+			if (position >= maxGridItems - columnCount) bottom = lastLineMargin
 
 			left = horizontalMargin
 			right = horizontalMargin
@@ -98,11 +108,11 @@ class MarginDecoration(
 		when (orientation) {
 			RecyclerView.VERTICAL -> setOffsetsVertical(outRect, parent, position, columnCount)
 			RecyclerView.HORIZONTAL -> setOffsetsHorizontal(outRect, parent, position, columnCount)
-			else -> throw IllegalStateException("Orientation with value $orientation is unknown")
+			else -> throw IllegalStateException("Unknown orientation with value $orientation")
 		}
 	}
 
 	companion object {
-		const val DEFAULT_MARGIN_DP = 16
+		private const val DEFAULT_MARGIN = 16
 	}
 }

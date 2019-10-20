@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.7.3] - 20-10-2019
+
+- Fixed issue where incorrect calculation of last row indexes caused double padding
+
 ## [0.7.3]
 
 - Fixed addAll referencing itself instead of underlying storage causing stack overflow.
