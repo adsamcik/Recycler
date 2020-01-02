@@ -3,3 +3,5 @@
 [ ![Download](https://api.bintray.com/packages/adsamcik/android-components/recycler/images/download.svg) ](https://bintray.com/adsamcik/android-components/recycler/_latestVersion)
 
 # Recycler
+
+Android library that provides generic adapters with basic functionality (eg. sorting, add, remove, update operations and more) and margin decoration that handles properly many different scenarios. This library is focused on providing common structures and functionalities, so that they don't have to be written from scratch.
