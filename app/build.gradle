@@ -33,6 +33,6 @@ dependencies {
     implementation project(path: ':recycler')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}"
 }
